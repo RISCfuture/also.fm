@@ -1,0 +1,21 @@
+@import config
+
+$field-border-color: rgba(white, 0.6)
+$field-font-size: 32px
+$mobile-field-font-size: $field-font-size/2
+
+@mixin field
+  appearance: none
+  display: block
+  width: 100%
+  box-sizing: border-box
+  border: 2px solid $field-border-color
+  background: none
+  font-family: $font
+  font-size: $field-font-size
+  color: $text-color
+  padding: 5px 10px
+
+  @media only screen and (max-width: 768px)
+    font-size: $mobile-field-font-size
+    border-width: 1px

@@ -2,14 +2,23 @@ doctype html
 html lang="en"
   head
     meta charset="utf-8"
-    meta name="description" content="TODO"
+    meta name="description" content="What should I be listening to?"
     meta name="author" content="Tim Morgan"
+    meta name="viewport" content="width=device-width, initial-scale=1.0"
     = csrf_meta_tags
 
-    title also
+    title also.
 
+    link href='https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application'
 
   body class=controller_name.gsub('/', '-') id="#{controller_name.gsub('/', '-')}-#{action_name}"
-    = yield
+    video#background autoplay="autoplay" loop="loop" poster=image_url('gradient.png')
+      source src=random_background_video type="video/mp4"
+
+    article
+      = render partial: 'layouts/nav'
+      = yield
+
     = javascript_include_tag 'application'
+    = render partial: 'layouts/inline_js'

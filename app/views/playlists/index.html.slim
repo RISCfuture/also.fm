@@ -1,0 +1,7 @@
+h3 Give people your list: #{link_to new_playlist_url(current_user), new_playlist_url(current_user)}
+
+- priorities.reverse.each do |(priority_name, priority_number)|
+  h2= priority_name
+
+  - @playlists.select { |p| p.priority == priority_number }.each do |playlist|
+    = render partial: 'playlist', locals: {playlist: playlist}

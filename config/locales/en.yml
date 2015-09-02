@@ -7,10 +7,16 @@ en:
             TODO:
               TODO: TODO
     models:
-      TODO: TODO
+      playlist: Playlist
+      tag: Tag
+      user: User
     attributes:
-      TODO:
-        TODO: TODO
+      user:
+        username: username
+        email: email
+        password: password
+        crypted_password: password
+        password_confirmation: password confirmation
   date:
     formats:
       TODO: TODO
@@ -47,10 +53,49 @@ en:
       after: must be after %{restriction}
       on_or_after: must be on or after %{restriction}
   helpers:
+    application:
+      try_again:
+      - maybe now?
+      - try again?
+      - how’s this?
+      - another go
+      - this’ll work
+      - got it this time
+      - better now
+    playlists:
+      titles:
+      - Ear-peep this dank bud.
+      - Now hear this.
+      - Give this a listen.
+      - Get ready for eargasm.
+      - Prepare your earballs.
+      - These tones pwn.
+      - This song’s the bomb.
+      - Here’s a thing.
+      - Mandatory listening.
     submit:
-      TODO:
-        create: TODO
-        update: TODO
+      playlist:
+        create: ship it
+      user:
+        create: enroll
+        update: change
   time:
     formats:
       TODO: TODO
+  flash:
+    account:
+      destroy:
+        notice: Your account has been deleted.
+    sessions:
+      destroy:
+        notice: You have been logged out.
+  models:
+    playlist:
+      priorities:
+      - it’s whatever
+      - good stuff
+      - OMGLISTENNAO
+  mailers:
+    playlist:
+      new_playlist:
+        subject: "New music for you to listen to!"

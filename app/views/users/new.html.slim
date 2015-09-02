@@ -1,0 +1,18 @@
+h1 Let’s get started
+
+= form_for @user do |f|
+  .field-group
+    div= f.label :username
+    div= f.text_field :username, required: true, maxlength: 16
+  .field-group
+    div= f.label :email
+    div= f.email_field :email, placeholder: "optional"
+  .field-group
+    div= f.label :password
+    div= f.password_field :password, required: true
+  .field-group
+    div= f.label :password_confirmation, "again"
+    div= f.password_field :password_confirmation, required: true
+  .field-group
+    div
+    div= f.submit "enter"

@@ -1,0 +1,64 @@
+body.playlists
+  form
+    margin-left: 0
+    margin-right: 0
+
+  .field-group>div:first-child
+    width: 25%
+  .field-group>div:last-child
+    width: 75%
+
+body#playlists-index
+  h2
+    margin-top: 80px
+
+  .playlist
+    width: 50%
+    margin-left: auto
+    margin-right: auto
+    display: flex
+    flex-flow: row nowrap
+    align-items: center
+
+    &.listened
+      opacity: 0.5
+
+    .checkmark
+      flex: 0 0 auto
+      margin-right: 1em
+
+    .info
+      flex: 1 1 auto
+
+      a
+        font-weight: 600
+
+      h1
+        font-size: 22px
+        font-weight: 700
+        text-align: left
+        margin-bottom: 0
+
+      p
+        margin: 5px 0
+        font-size: 18px
+
+.playlist-check
+  appearance: none
+  background: image-url('playlist-check/unchecked.png') no-repeat center center
+  width: 36px
+  height: 36px
+  cursor: pointer
+
+  &:active
+    background-image: image-url('playlist-check/unchecked-active.png')
+  &:checked
+    background-image: image-url('playlist-check/checked.png')
+  &:checked:active
+    background-image: image-url('playlist-check/checked-active.png')
+
+
+@media only screen and (max-width: 768px)
+  body#playlists-index
+    h2
+      margin-top: 40px

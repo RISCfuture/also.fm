@@ -1,0 +1,7 @@
+nav: ul
+  - if logged_in?
+    li= link_to "My List", root_url
+    li= link_to "Log Out", logout_url
+    /li= link_to "Deactivate", account_url, method: :delete
+  - else
+    li= link_to "Sign In", login_url(next: request.fullpath)

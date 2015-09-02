@@ -1,0 +1,61 @@
+@import form_mixins
+
+form
+  margin-left: 20%
+  margin-right: 20%
+
+.field-group
+  display: flex
+  flex-flow: row nowrap
+  align-items: baseline
+  margin-bottom: 20px
+
+  &>div
+    flex: 0 0 auto
+    width: 50%
+    box-sizing: border-box
+
+  label
+    text-align: right
+    margin-right: 1em
+
+label
+  display: block
+  font-size: $field-font-size
+
+input[type=text], input[type=email], input[type=password], input[type=url], textarea
+  +field
+  border-radius: 4px
+
+  &::placeholder
+    color: rgba(white, 0.5)
+
+  &.invalid, &[data-errors]
+    border-color: rgba(#a00, 0.8)
+
+  &:focus
+    outline: none
+    border-color: white
+
+input[type=submit], input[type=button], button
+  +field
+  border-radius: 100px // fully rounded
+  border-color: $text-color
+  cursor: pointer
+
+  &:active
+    background: $text-color
+    border-color: transparent
+    color: darken(mix($key-color1, $key-color2), 50%)
+
+
+@media only screen and (max-width: 768px)
+  form
+    margin-left: 0
+    margin-right: 0
+
+  .field-group
+    margin-bottom: 10px
+
+  label
+    font-size: 16px

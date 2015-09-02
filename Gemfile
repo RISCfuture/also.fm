@@ -26,6 +26,7 @@ gem 'jbuilder'
 group :development do
   gem 'web-console'
   gem 'spring'
+  gem 'thin'
 end
 
 group :doc do
