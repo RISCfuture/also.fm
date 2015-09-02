@@ -1,6 +1,6 @@
 h1= random_title
 
-= form_for @playlist do |f|
+= form_for @playlist, url: playlists_url(@user), method: :post do |f|
   .field-group
     div= f.label :url, "link it."
     div= f.url_field :url, required: true
