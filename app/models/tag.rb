@@ -7,5 +7,5 @@ class Tag < ActiveRecord::Base
             presence:   true,
             length:     {maximum: 50},
             uniqueness: {scope: :playlist_id},
-            format:     {with: /\A[^, ]+\z/}
+            format:     {with: /\A[^,]+\z/}
 end
