@@ -1,8 +1,9 @@
+ruby '2.2.2'
 source 'https://rubygems.org'
-
 
 gem 'rails', '4.2.4'
 gem 'responders'
+gem 'rails_12factor'
 
 gem 'pg'
 gem 'url_validation'
