@@ -1,0 +1,56 @@
+en:
+  activerecord:
+    errors:
+      models:
+        TODO:
+          attributes:
+            TODO:
+              TODO: TODO
+    models:
+      TODO: TODO
+    attributes:
+      TODO:
+        TODO: TODO
+  date:
+    formats:
+      TODO: TODO
+  errors:
+    messages:
+      accepted: must be accepted
+      blank: can’t be blank
+      confirmation: doesn’t match confirmation
+      empty: can’t be empty
+      equal_to: must be equal to %{count}
+      even: must be even
+      exclusion: reserved
+      greater_than: must be greater than %{count}
+      greater_than_or_equal_to: must be greater than or equal to %{count}
+      inclusion: not acceptable
+      incorrect_type: incorrect type
+      invalid: invalid
+      invalid_email: not a valid email address
+      less_than: must be less than %{count}
+      less_than_or_equal_to: must be less than or equal to %{count}
+      not_a_number: not a number
+      not_an_integer: not an integer
+      odd: must be odd
+      taken: already taken
+      too_long: must be %{count} characters or shorter
+      too_short: must be %{count} characters or longer
+      wrong_length: must be %{count} characters long
+      invalid_date: not a valid date
+      invalid_time: not a valid time
+      invalid_datetime: not a valid date and time
+      is_at: must be at %{restriction}
+      before: must be before %{restriction}
+      on_or_before: must be on or before %{restriction}
+      after: must be after %{restriction}
+      on_or_after: must be on or after %{restriction}
+  helpers:
+    submit:
+      TODO:
+        create: TODO
+        update: TODO
+  time:
+    formats:
+      TODO: TODO
