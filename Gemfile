@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.2.4'
 gem 'responders'
 gem 'rails_12factor'
+gem 'puma'
 
 gem 'pg'
 gem 'url_validation'
@@ -27,7 +28,6 @@ gem 'jbuilder'
 group :development do
   gem 'web-console'
   gem 'spring'
-  gem 'thin'
 end
 
 group :doc do
