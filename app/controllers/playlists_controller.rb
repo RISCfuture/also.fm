@@ -27,6 +27,7 @@ class PlaylistsController < ApplicationController
         if @playlist.valid?
           render 'create'
         else
+          Rails.logger.warn "Playlist errors: #{@playlist.errors.inspect}"
           render 'new'
         end
       end
