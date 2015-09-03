@@ -1,0 +1,16 @@
+videos = []
+
+<% Dir.glob(Rails.root.join('app', 'assets', 'videos', 'backgrounds', '*.mp4')).each do |video| %>
+videos.push "<%= video_url File.join('backgrounds', File.basename(video)) %>"
+<% end %>
+
+toggleMovie = ->
+    if window.innerWidth > 960 && $('#background').length == 0
+        video = $('<video/>').attr(id: 'background', autoplay: 'autoplay', loop: 'loop')
+        $('<source/>').attr(src: videos[Math.floor(Math.random()*videos.length)], type: 'video/mp4').appendTo video
+        video.prependTo $('body')
+    else if window.innerWidth <= 960 && $('#background').length > 0
+        $('#background').remove()
+
+$(window).resize toggleMovie
+toggleMovie()

@@ -1,7 +1,12 @@
 module ApplicationHelper
   def random_background_video
-    video = Dir.glob(Rails.root.join('app', 'assets', 'videos', 'backgrounds', '*.mov')).sample
+    video = Dir.glob(Rails.root.join('app', 'assets', 'videos', 'backgrounds', '*.mp4')).sample
     video_url File.join('backgrounds', File.basename(video))
+  end
+
+  def random_background_image
+    video = Dir.glob(Rails.root.join('app', 'assets', 'images', 'backgrounds', '*.jpg')).sample
+    image_url File.join('backgrounds', File.basename(video))
   end
 
   def try_again

@@ -16,6 +16,7 @@
 //
 //= require utilities
 //= require multibutton
+//= require background_video
 
 // we need the placeholder of every field to be present (even if just a space)
 // in order to get the flex baseline alignment to work
