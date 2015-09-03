@@ -31,7 +31,7 @@ class Playlist < ActiveRecord::Base
   after_create :send_email
 
   def tag_names
-    @tag_names ||= tags.map(&:name).join(', ')
+    @tag_names ||= tags.map(&:name).sort.join(', ')
   end
 
   private
