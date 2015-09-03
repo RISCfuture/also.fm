@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 
 gem 'rails', '4.2.4'
 gem 'responders'
-gem 'rails_12factor'
 gem 'puma'
 
 gem 'pg'
@@ -46,4 +45,8 @@ group :test do
   gem 'factory_girl_rails'
   gem 'faker'
   gem 'database_cleaner'
+end
+
+group :production do
+  gem 'rails_12factor'
 end
