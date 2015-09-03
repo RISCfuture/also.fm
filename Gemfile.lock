@@ -70,6 +70,10 @@ GEM
       railties (>= 3.0.0)
     faker (1.5.0)
       i18n (~> 0.5)
+    faraday (0.9.1)
+      multipart-post (>= 1.2, < 3)
+    faraday_middleware (0.10.0)
+      faraday (>= 0.7.4, < 0.10)
     find_or_create_on_scopes (1.4.0)
       activerecord (>= 3.1)
     font-awesome-rails (4.4.0.0)
@@ -99,6 +103,7 @@ GEM
     mini_portile (0.6.2)
     minitest (5.8.0)
     multi_json (1.11.2)
+    multipart-post (2.0.0)
     nokogiri (1.6.6.2)
       mini_portile (~> 0.6.0)
     pg (0.18.2)
@@ -205,6 +210,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  addressable
   autoprefixer-rails
   better_errors
   binding_of_caller
@@ -213,10 +219,13 @@ DEPENDENCIES
   email_validation
   factory_girl_rails
   faker
+  faraday
+  faraday_middleware
   find_or_create_on_scopes
   font-awesome-rails
   jbuilder
   jquery-rails
+  nokogiri
   pg
   puma
   rails (= 4.2.4)

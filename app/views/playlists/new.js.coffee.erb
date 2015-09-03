@@ -1,0 +1,17 @@
+$(window).ready ->
+    loading = false
+    placeholder = $('#playlist_name').attr('placeholder')
+
+    $('#playlist_url').change ->
+        if !loading && $('#playlist_url').val().length > 0
+            loading = true
+            $('#playlist_name').attr 'placeholder', 'guessing a name…'
+            $.ajax "<%= escape_javascript name_playlists_url %>",
+                data: {url: $('#playlist_url').val()}
+                dataType: 'json'
+                complete: ->
+                    loading = false
+                    $('#playlist_name').attr 'placeholder', placeholder
+                success: (result) ->
+                    if $('#playlist_name').val().length == 0
+                        $('#playlist_name').val result.title

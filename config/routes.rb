@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 
   resources :playlists, only: [] do
     member { patch :ack }
+    collection { get :name }
   end
 
   root 'playlists#index'

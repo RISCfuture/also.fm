@@ -25,6 +25,11 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 
+gem 'faraday'
+gem 'faraday_middleware'
+gem 'nokogiri'
+gem 'addressable'
+
 group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
