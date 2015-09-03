@@ -5,3 +5,4 @@ nav: ul
     /li= link_to "Deactivate", account_url, method: :delete
   - else
     li= link_to "Sign In", login_url(next: request.fullpath)
+    li= link_to "Join", signup_url(next: request.fullpath)

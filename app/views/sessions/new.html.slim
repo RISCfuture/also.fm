@@ -1,17 +1,19 @@
-- if @username
-  h1 Not quite.
-- else
-  h1 Welcome back.
+.row
+  div
+  - if @username
+    h1 Not quite.
+  - else
+    h1 Welcome back.
 
 = form_tag session_url, method: :post do
-  .field-group
+  .row
     div= label_tag 'username', "username"
     div= text_field_tag 'username', @username, required: true, maxlength: 16
 
-  .field-group
+  .row
     div= label_tag 'password', "password"
     div= password_field_tag 'password', '', required: true
 
-  .field-group
+  .row
     div
     div= submit_tag(@username ? try_again : "enter")

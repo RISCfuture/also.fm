@@ -1,18 +1,20 @@
-h1 Let’s get started
+.row
+  div
+  h1 Let’s get started
 
 = form_for @user do |f|
-  .field-group
+  .row
     div= f.label :username
     div= f.text_field :username, required: true, maxlength: 16
-  .field-group
+  .row
     div= f.label :email
     div= f.email_field :email, placeholder: "optional"
-  .field-group
+  .row
     div= f.label :password
     div= f.password_field :password, required: true
-  .field-group
+  .row
     div= f.label :password_confirmation, "again"
     div= f.password_field :password_confirmation, required: true
-  .field-group
+  .row
     div
     div= f.submit "enter"

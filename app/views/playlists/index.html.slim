@@ -1,15 +1,23 @@
 - if @playlists.empty?
-  p#nothing nothing yet.
+  .row
+    div
+    p#nothing nothing yet.
 
 - priorities.reverse.each do |(priority_name, priority_number)|
   - playlists = @playlists.select { |p| p.priority == priority_number }
   - next if playlists.empty?
 
-  h2= priority_name
+  .row
+    div
+    h2= priority_name
 
-  - playlists.each do |playlist|
-    = render partial: 'playlist', locals: {playlist: playlist}
+  .playlists
+    - playlists.each do |playlist|
+      = render partial: 'playlist', locals: {playlist: playlist}
 
-#share-links
-  h3 Give this to your friends: #{link_to new_playlist_url(current_user), new_playlist_url(current_user)}
-  h3 Share your playlist: #{link_to playlist_url(current_user), playlist_url(current_user)}
+.row
+  h3 Give this to your friends
+  p= link_to new_playlist_url(current_user), new_playlist_url(current_user)
+.row
+  h3 Share your playlist
+  p= link_to playlist_url(current_user), playlist_url(current_user)

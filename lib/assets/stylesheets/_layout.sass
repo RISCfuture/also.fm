@@ -9,10 +9,56 @@ article
   margin-left: auto
   margin-right: auto
 
+.row
+  display: flex
+  flex-flow: row nowrap
+  align-items: baseline
+
+  &>*:first-child
+    flex: 0 0 auto
+    text-align: right
+    width: 304px
+    margin-right: 24px
+
+  &>*:last-child
+    flex: 0 0 auto
+    width: 632px
+
 @media only screen and (max-width: 960px)
   article
     width: 768px
 
+  .row>*:first-child
+    width: 240px
+  .row>*:last-child
+    width: 504px
+
 @media only screen and (max-width: 768px)
+  body
+    padding-top: 10px
+
   article
     width: 375px
+
+  .row:not(.force-horiz)
+    flex-flow: column nowrap
+    align-items: flex-start
+    margin-bottom: 20px
+
+    &>*:first-child
+      width: 100%
+      margin-right: 0
+      margin-bottom: 12px
+      text-align: left
+    &>*:last-child
+      width: 100%
+
+  .row.force-horiz
+    &>*:first-child
+      flex: 0 0 auto
+      width: auto
+      margin-right: 12px
+
+    &>*:last-child
+      flex: 1 1 auto
+      width: auto

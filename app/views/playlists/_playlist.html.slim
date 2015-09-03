@@ -1,4 +1,4 @@
-.playlist
+.playlist.row.force-horiz
   .checkmark= check_box_tag 'listened', '1', playlist.listened_at ? '1' : nil, class: 'playlist-check', data: {url: ack_playlist_url(playlist, format: 'json') }
   .info
     h1= link_to playlist.name, playlist.url

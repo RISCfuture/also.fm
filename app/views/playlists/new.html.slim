@@ -1,22 +1,24 @@
-h1= random_title
+.row
+  div
+  h1= random_title
 
 = form_for @playlist, url: playlists_url(@user), method: :post do |f|
-  .field-group
+  .row
     div= f.label :url, "link it."
     div= f.url_field :url, required: true
 
-  .field-group
+  .row
     div= f.label :name, "name it."
     div= f.text_field :name, placeholder: 'optional', maxlength: 100
 
-  .field-group
+  .row
     div= f.label :priority, "prioritize it."
     div= f.select :priority, priorities, {}, data: {multibutton: true}
 
-  .field-group
+  .row
     div= f.label :tag_names, "tag it."
     div= f.text_field :tag_names, placeholder: 'metal, screaming, omg chester screaming'
 
-  .field-group
+  .row
     div
     div= f.submit

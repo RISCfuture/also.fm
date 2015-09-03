@@ -1,7 +1,10 @@
-h1 It’s on the list.
+.row
+  div
+  div
+    h1 It’s on the list.
 
-h2
-  = link_to "More?", new_playlist_url
-  '  Or
-  = link_to "see #{@user.username}’s playlist?", playlist_url(@user)
+    h2
+      = link_to "More?", new_playlist_url
+      '  Or
+      = link_to "see #{@user.username}’s playlist?", playlist_url(@user)
 
