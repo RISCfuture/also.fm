@@ -12,7 +12,7 @@ html lang="en"
     link href='https://fonts.googleapis.com/css?family=Dosis:200,300,400,500,600,700,800' rel='stylesheet' type='text/css'
     = stylesheet_link_tag 'application'
 
-  body class=controller_name.gsub('/', '-') id="#{controller_name.gsub('/', '-')}-#{action_name}"
+  body class=full_controller_name id="#{full_controller_name}-#{current_template}"
     video#background autoplay="autoplay" loop="loop" poster=image_url('gradient.png')
       source src=random_background_video type="video/mp4"
 

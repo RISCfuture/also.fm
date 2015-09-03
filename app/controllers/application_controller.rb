@@ -4,4 +4,14 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   include Authentication
+
+  # @return [String] The name of the template being rendered.
+  attr_accessor :current_template
+  helper_method :current_template
+
+  # @private
+  def _render_template(options, *other_stuff)
+    self.current_template = options[:template]
+    super
+  end
 end

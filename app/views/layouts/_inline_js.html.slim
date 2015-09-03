@@ -1,9 +1,14 @@
-- js_file             = Rails.root.join('app', 'views', controller_name, action_name + '.js')
-- js_coffee_file      = Rails.root.join('app', 'views', controller_name, action_name + '.js.coffee')
-- js_erb_file         = Rails.root.join('app', 'views', controller_name, action_name + '.js.erb')
-- js_coffee_erb_file  = Rails.root.join('app', 'views', controller_name, action_name + '.js.coffee.erb')
+- view_paths.paths.map(&:to_path).each do |path|
+  - if (file = Rails.root.join(path, full_controller_path, current_template + '.js')).exist?
+    script type="text/javascript" == File.read(file)
 
-script type="text/javascript" == raw(File.read(js_file)) if File.exists?(js_file)
-script type="text/javascript" == raw(CoffeeScript.compile(File.read(js_coffee_file))) if File.exist?(js_coffee_file)
-script type="text/javascript" == raw(ERB.new(File.read(js_erb_file)).result(binding)) if File.exist?(js_erb_file)
-script type="text/javascript" == raw(CoffeeScript.compile(ERB.new(File.read(js_coffee_erb_file)).result(binding))) if File.exist?(js_coffee_erb_file)
+  - if (file = Rails.root.join(path, full_controller_path, current_template + '.js.erb')).exist?
+    script type="text/javascript" == ERB.new(File.read(file)).result(binding)
+
+  - if (file = Rails.root.join(path, full_controller_path, current_template + '.js.coffee')).exist?
+    script type="text/javascript" == CoffeeScript.compile(File.read(file))
+
+  - if (file = Rails.root.join(path, full_controller_path, current_template + '.js.coffee.erb')).exist?
+    script type="text/javascript" == CoffeeScript.compile(ERB.new(File.read(file)).result(binding))
+
+= content_for :javascripts
