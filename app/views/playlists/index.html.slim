@@ -1,7 +1,14 @@
-h3 Give people your list: #{link_to new_playlist_url(current_user), new_playlist_url(current_user)}
+- if @playlists.empty?
+  p#nothing nothing yet.
 
 - priorities.reverse.each do |(priority_name, priority_number)|
+  - playlists = @playlists.select { |p| p.priority == priority_number }
+  - next if playlists.empty?
+
   h2= priority_name
 
-  - @playlists.select { |p| p.priority == priority_number }.each do |playlist|
+  - playlists.each do |playlist|
     = render partial: 'playlist', locals: {playlist: playlist}
+
+#share-links
+  h3 Give this to your friends: #{link_to new_playlist_url(current_user), new_playlist_url(current_user)}
