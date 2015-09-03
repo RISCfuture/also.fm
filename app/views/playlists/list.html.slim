@@ -1,0 +1,12 @@
+- if @playlists.empty?
+  p#nothing #{@user.username} has nothing yet.
+
+- priorities.reverse.each do |(priority_name, priority_number)|
+  - playlists = @playlists.select { |p| p.priority == priority_number }
+  - next if playlists.empty?
+
+  h2= priority_name
+
+  - playlists.each do |playlist|
+    = render partial: 'playlist_ro', locals: {playlist: playlist}
+

@@ -10,6 +10,7 @@ Rails.application.routes.draw do
   scope path: '/:user_id' do
     resources :playlists, only: :create
     root to: 'playlists#new', as: :new_playlist
+    get 'playlist' => 'playlists#list'
   end
 
   resources :playlists, only: [] do

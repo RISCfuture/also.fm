@@ -15,6 +15,13 @@ class PlaylistsController < ApplicationController
     end
   end
 
+  def list
+    @playlists = @user.received_playlists.order(priority: :desc, created_at: :desc).limit(100)
+    respond_with @playlists do |format|
+      format.html { render 'list' }
+    end
+  end
+
   def new
     @playlist = @user.sent_playlists.build(from_user: current_user)
     respond_with @playlist
@@ -49,6 +56,11 @@ class PlaylistsController < ApplicationController
 
   def find_user
     @user = User.find_by_username!(params[:user_id])
+  end
+
+  def optionally_find_user
+    find_user
+  rescue ActiveRecord::RecordNotFound
   end
 
   def playlist_params

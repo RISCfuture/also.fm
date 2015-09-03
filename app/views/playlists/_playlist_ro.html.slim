@@ -1,0 +1,14 @@
+.playlist
+  .checkmark
+    - if playlist.listened_at?
+      = image_tag 'playlist-check/checked.png'
+    - else
+      = image_tag 'playlist-check/unchecked.png'
+  .info
+    h1= link_to playlist.name, playlist.url
+    - if playlist.from_user
+      p from #{link_to playlist.from_user.username, new_playlist_url(playlist.from_user)}
+    - if playlist.tags.any?
+      p tags: #{playlist.tag_names}
+    - if playlist.description?
+      = simple_format playlist.description
