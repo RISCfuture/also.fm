@@ -9,6 +9,6 @@
     - if playlist.from_user
       p from #{link_to playlist.from_user.username, new_playlist_url(playlist.from_user)}
     - if playlist.tags.any?
-      p tags: #{playlist.tag_names}
+      p.tags> tags: #{playlist.tags.map { |t| link_to t.name, url_for(tag: t.name) }.join(', ').html_safe}
     - if playlist.description?
       = simple_format playlist.description

@@ -1,6 +1,11 @@
 .row
   div
-  h1 #{@user.username}’s list
+  - if params[:tag].present?
+    h1
+      ' tag: #{params[:tag]}
+      small= link_to "(clear)", url_for(tag: nil)
+  - else
+    h1 #{@user.username}’s list
 
 - if @playlists.empty?
   .row

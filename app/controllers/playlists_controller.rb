@@ -7,7 +7,19 @@ class PlaylistsController < ApplicationController
 
   def index
     if current_user
-      @playlists = current_user.received_playlists.where(listened_at: nil).order(priority: :desc, created_at: :desc).limit(100)
+      if params[:tag].present?
+        @playlists = Tag.where(name: params[:tag]).joins(:playlist).
+            where(playlists: {for_user_id: current_user.id})
+      else
+        @playlists = current_user.received_playlists
+      end
+
+      @playlists = @playlists.where(playlists: {listened_at: nil}).
+          order('playlists.priority DESC, playlists.created_at DESC').
+          limit(100)
+
+      @playlists = @playlists.map(&:playlist) if params[:tag].present?
+
       respond_with @playlists
     else
       respond_to do |format|
@@ -18,7 +30,19 @@ class PlaylistsController < ApplicationController
   end
 
   def list
-    @playlists = @user.received_playlists.order(priority: :desc, created_at: :desc).limit(100)
+    if params[:tag].present?
+      @playlists = Tag.where(name: params[:tag]).joins(:playlist).
+          where(playlists: {for_user_id: @user.id})
+    else
+      @playlists = @user.received_playlists
+    end
+
+    @playlists = @playlists.where(playlists: {listened_at: nil}).
+        order('playlists.priority DESC, playlists.created_at DESC').
+        limit(100)
+
+    @playlists = @playlists.map(&:playlist) if params[:tag].present?
+
     respond_with @playlists do |format|
       format.html { render 'list' }
     end
@@ -89,7 +113,7 @@ class PlaylistsController < ApplicationController
   end
 
   def load_url_title(url)
-    uri  = Addressable::URI.parse(url)
+    uri = Addressable::URI.parse(url)
     return nil unless %(http https).include?(uri.scheme)
 
     conn = Faraday.new(url: uri.origin) do |f|
