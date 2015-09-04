@@ -2,7 +2,7 @@
   div
   h1= random_title
 
-= form_for @playlist, url: playlists_url(@user), method: :post do |f|
+= form_for @playlist, url: user_playlists_url(@user), method: :post do |f|
   .row
     div= f.label :url, "link it."
     div= f.url_field :url, required: true

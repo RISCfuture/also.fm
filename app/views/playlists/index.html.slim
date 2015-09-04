@@ -3,26 +3,16 @@
   - if params[:tag].present?
     h1
       ' tag: #{params[:tag]}
-      small= link_to "(clear)", url_for(tag: nil)
+      small= link_to "(clear)", root_url(tag: nil)
   - else
     h1 your list
 
-- if @playlists.empty?
-  .row
-    div
-    p#nothing nothing yet.
+.row#nothing
+  div
+  p nothing yet.
 
 - priorities.reverse.each do |(priority_name, priority_number)|
-  - playlists = @playlists.select { |p| p.priority == priority_number }
-  - next if playlists.empty?
-
-  .row
-    div
-    h2= priority_name
-
-  .playlists
-    - playlists.each do |playlist|
-      = render partial: 'playlist', locals: {playlist: playlist}
+  div data-priority=priority_number data-name=priority_name
 
 .row
   h3 Give this to your friends

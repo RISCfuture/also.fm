@@ -1,6 +1,12 @@
 Rails.application.routes.draw do
-  resources :users, only: [:new, :create]
-  resource :account, only: :destroy
+  resources :users, only: [:new, :create] do
+    resources :playlists, controller: 'user/playlists', only: [:index, :create]
+  end
+  resource :account, only: :destroy do
+    resources :playlists, controller: 'account/playlists', only: :index do
+      member { patch :ack }
+    end
+  end
   resource :session, only: [:new, :create, :destroy]
 
   get 'signup' => 'users#new'
@@ -8,14 +14,9 @@ Rails.application.routes.draw do
   get 'logout' => 'sessions#destroy'
 
   scope path: '/:user_id' do
-    resources :playlists, only: :create
-    root to: 'playlists#new', as: :new_playlist
-    get 'playlist' => 'playlists#list'
-  end
-
-  resources :playlists, only: [] do
-    member { patch :ack }
-    collection { get :name }
+    get '' => 'user/playlists#new', as: :new_playlist
+    get 'playlist' => 'user/playlists#index'
+    get 'playlist/name' => 'playlists#name', as: :guess_name
   end
 
   root 'playlists#index'

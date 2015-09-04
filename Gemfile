@@ -23,6 +23,7 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
+gem 'hogan_assets'
 
 gem 'faraday'
 gem 'faraday_middleware'

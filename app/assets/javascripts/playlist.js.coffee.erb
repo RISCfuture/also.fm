@@ -1,0 +1,38 @@
+root = exports ? this
+
+class root.Playlist
+    constructor: (@element, @url, @title, @callback) ->
+        this.reload()
+
+    reload: ->
+        $.ajax @url,
+            success: (playlists) =>
+                this.render(playlists)
+                @callback(playlists)
+            error: (playlists) =>
+                this.render([])
+                @callback([])
+
+    render: (playlists) ->
+        html = ""
+        for playlist in playlists
+            do (playlist) =>
+                playlist.checked_image = "<%= image_url('playlist-check/checked.png') %>"
+                playlist.unchecked_image = "<%= image_url('playlist-check/unchecked.png') %>"
+                html += HoganTemplates['playlist'].render(playlist)
+        @element.html HoganTemplates['playlists'].render
+            'empty?': playlists.length == 0
+            priority: @title
+            playlists: html
+
+        @element.find('.playlist-check').click ->
+            $.ajax $(this).attr('data-url'),
+                type: 'PATCH'
+                success: (playlist) =>
+                    if playlist.listened_at?
+                        $(this).closest('.playlist').addClass 'listened'
+                        $(this).attr 'checked', 'checked'
+                    else
+                        $(this).closest('.playlist').removeClass 'listened'
+                        $(this).removeAttr 'checked'
+

@@ -1,0 +1,32 @@
+<div class="playlist row force-horiz">
+    <div class="checkmark">
+        {{#read_only?}}
+            {{#listened?}}
+                <img src="{{checked_image}}" />
+            {{/listened?}}
+            {{^listened?}}
+                <img src="{{unchecked_image}}" />
+            {{/listened?}}
+        {{/read_only?}}
+        {{^read_only?}}
+            <input type="checkbox" name="listened" value="1"
+                   {{#listened?}}checked{{/listened?}}
+                   class="playlist-check" data-url="{{ack_url}}" />
+        {{/read_only?}}
+    </div>
+    <div class="info">
+        <h1><a href="{{url}}">{{name}}</a></h1>
+        {{#from_user?}}
+            <p>from <a href="{{from_user.url}}">{{from_user.username}}</a> </p>
+        {{/from_user?}}
+        {{#tags?}}
+            tags:
+            {{#tags}}
+                <a href="{{filter_url}}">{{name}}</a>{{^last?}}, {{/last?}}
+            {{/tags}}
+        {{/tags?}}
+        {{#description?}}
+            {{{formatted_description}}}
+        {{/description?}}
+    </div>
+</div>

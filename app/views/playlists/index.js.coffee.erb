@@ -1,0 +1,10 @@
+updateNoneVisibility = ->
+    if $('[data-priority]').html().length == 0
+        $('#nothing').show()
+    else
+        $('#nothing').hide()
+
+$(window).ready ->
+    $('[data-priority]').each ->
+        new Playlist $(this), "<%= escape_javascript account_playlists_url(tag: params[:tag].presence, priority: 'REPLACEME', format: 'json') %>".replace('REPLACEME', $(this).attr('data-priority')), $(this).attr('data-name'), ->
+            updateNoneVisibility()
