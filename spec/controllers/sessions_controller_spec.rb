@@ -1,26 +1,55 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-
-  describe "GET #new" do
-    it "returns http success" do
+  describe '#new' do
+    it "should render the login page" do
       get :new
-      expect(response).to have_http_status(:success)
+      expect(response.status).to eql(200)
+      expect(response).to render_template('new')
     end
   end
 
-  describe "GET #create" do
-    it "returns http success" do
-      get :create
-      expect(response).to have_http_status(:success)
+  describe '#create' do
+    before(:all) { @user = FactoryGirl.create(:user, username: 'user', password: 'password123') }
+
+    it "should reject an unknown username" do
+      post :create, username: 'user123', password: 'password123'
+      expect(response).to render_template('new')
+      expect(assigns(:username)).to eql('user123')
+    end
+
+    it "should reject an invalid password" do
+      post :create, username: 'user', password: 'password'
+      expect(response).to render_template('new')
+      expect(assigns(:username)).to eql('user')
+    end
+
+    context '[valid login and password]' do
+      it "should log the user in" do
+        post :create, username: 'user', password: 'password123'
+      end
+
+      it "should redirect to the :next parameter if given" do
+        post :create, username: 'user', password: 'password123', next: '/foo/bar'
+        expect(session[:user_id]).to eql(@user.id)
+        expect(response).to redirect_to('/foo/bar')
+      end
+
+      it "should redirect to the root URL otherwise" do
+        post :create, username: 'user', password: 'password123'
+        expect(session[:user_id]).to eql(@user.id)
+        expect(response).to redirect_to(root_url)
+      end
     end
   end
 
-  describe "GET #destroy" do
-    it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
+  describe '#destroy' do
+    before(:each) { login_as FactoryGirl.create(:user) }
+
+    it "should log the user out" do
+      delete :destroy
+      expect(session[:user_id]).to be_nil
+      expect(response).to redirect_to(root_url)
     end
   end
-
 end

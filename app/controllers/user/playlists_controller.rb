@@ -4,7 +4,7 @@ class User::PlaylistsController < ApplicationController
 
   def index
     if params[:tag].present?
-      @playlists = Tag.where(name: params[:tag]).joins(playlist: [:from_user, :tags]).
+      @playlists = Tag.where(name: params[:tag]).joins(playlist: [:tags]). # adding :from_user to this association breaks the SQL query
           where(playlists: {for_user_id: @user.id})
     else
       @playlists = @user.received_playlists.includes(:from_user, :tags)

@@ -6,6 +6,6 @@ class AccountsController < ApplicationController
   def destroy
     current_user.destroy
     log_out
-    respond_with current_user, location: login_url
+    respond_with current_user, location: root_url
   end
 end

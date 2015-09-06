@@ -30,16 +30,19 @@ class Playlist < ActiveRecord::Base
   before_validation :set_name
   after_create :send_email
 
-  def tag_names
-    @tag_names ||= tags.map(&:name).sort.join(', ')
+  def tag_names(reload=false)
+    @tag_names = nil if reload
+    @tag_names ||= tags.order('id ASC').map(&:name).join(', ')
   end
 
   private
 
   def save_tags
-    tag_names.split(/\s*,\s*/).each do |name|
+    new_tags = tag_names.split(/\s*,\s*/)
+    new_tags.each do |name|
       tags.where(name: name).find_or_create
     end
+    tags.where('name NOT IN (?)', new_tags).delete_all
   end
 
   def set_name

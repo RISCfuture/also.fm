@@ -1,8 +1,6 @@
 require 'addressable/uri'
 
 class PlaylistsController < ApplicationController
-  respond_to :html
-
   def index
     render current_user ? 'index' : 'splash'
   end
@@ -12,12 +10,13 @@ class PlaylistsController < ApplicationController
 
     title = load_url_title(params[:url])
     return render(json: {title: nil}) unless title
+    title = title.strip.gsub(/\s*\n\s*/, ' ')
 
     name = if title =~ /^iTunes - Music - (.+)$/
              $1
            elsif title =~ /^(.+) \| Free Listening on SoundCloud$/
              $1
-           elsif title =~ /^(.+) \| YouTube$/
+           elsif title =~ /^(.+) [|\-] YouTube$/
              $1
            else
              nil

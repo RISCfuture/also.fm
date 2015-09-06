@@ -44,8 +44,10 @@ end
 group :test do
   gem 'rspec-rails'
   gem 'factory_girl_rails'
-  gem 'faker'
+  gem 'ffaker'
   gem 'database_cleaner'
+  gem 'fakeweb'
+  gem 'timecop'
 end
 
 group :production do

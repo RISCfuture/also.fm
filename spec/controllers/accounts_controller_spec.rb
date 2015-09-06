@@ -1,12 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
+  describe '#destroy' do
+    before(:each) { login_as(@user = FactoryGirl.create(:user)) }
 
-  describe "GET #destroy" do
-    it "returns http success" do
-      get :destroy
-      expect(response).to have_http_status(:success)
+    it "should delete the current user's account" do
+      delete :destroy
+      expect(response).to redirect_to(root_url)
+      expect(session[:user_id]).to be_nil
+      expect { @user.reload }.to raise_error(ActiveRecord::RecordNotFound)
     end
   end
-
 end
