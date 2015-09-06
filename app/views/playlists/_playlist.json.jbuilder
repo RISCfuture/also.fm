@@ -10,7 +10,7 @@ json.from_user? !playlist.from_user.nil?
 json.from_user do
   json.url new_playlist_url(playlist.from_user)
   json.username playlist.from_user.username
-end
+end if json.from_user?
 
 json.tags? playlist.tags.any?
 json.tags do
