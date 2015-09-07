@@ -4,12 +4,10 @@ RSpec.describe Account::PlaylistsController, type: :controller do
   describe '#index' do
     before :all do
       @user = FactoryGirl.create(:user)
-      FactoryGirl.create :playlist, for_user: @user, name: 'name1', url: 'http://url1.com', created_at: 4.days.ago, listened_at: nil, priority: 1
-      FactoryGirl.create :playlist, for_user: @user, name: 'name2', url: 'http://url2.com', created_at: 3.days.ago, listened_at: nil, priority: 1
-      tag1 = FactoryGirl.create(:playlist, for_user: @user, name: 'name3', url: 'http://url3.com', created_at: 2.days.ago, listened_at: nil, priority: 1)
-      tag2 = FactoryGirl.create(:playlist, for_user: @user, name: 'name4', url: 'http://url4.com', created_at: 1.days.ago, listened_at: nil, priority: 1)
-      FactoryGirl.create :tag, name: 'tag', playlist: tag1
-      FactoryGirl.create :tag, name: 'tag', playlist: tag2
+      15.times.each do |i|
+        playlist = FactoryGirl.create(:playlist, for_user: @user, name: "name#{i}", url: "http://url#{i}.com", created_at: (15-i).days.ago, listened_at: nil, priority: 1)
+        FactoryGirl.create(:tag, name: 'tag', playlist: playlist) if i <= 4
+      end
 
       FactoryGirl.create :playlist, for_user: @user, priority: 2
       FactoryGirl.create :playlist, for_user: @user, listened_at: Time.now
@@ -27,12 +25,24 @@ RSpec.describe Account::PlaylistsController, type: :controller do
       it "should load the current user's playlists" do
         get :index, format: 'json', priority: '1'
         expect(response.status).to eql(200)
-        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(%w(name4 name3 name2 name1))
+        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(14.downto(5).map { |i| "name#{i}" })
+        expect(response.headers['X-Page']).to eql('1')
+        expect(response.headers['X-Count']).to eql('15')
       end
 
       it "should filter by tag" do
         get :index, tag: 'tag', format: 'json', priority: '1'
-        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(%w(name4 name3))
+        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(4.downto(0).map { |i| "name#{i}" })
+        expect(response.headers['X-Page']).to eql('1')
+        expect(response.headers['X-Count']).to eql('5')
+      end
+
+      it "should paginate" do
+        get :index, user_id: @user.to_param, format: 'json', priority: '1', page: '2'
+        expect(response.status).to eql(200)
+        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(4.downto(0).map { |i| "name#{i}" })
+        expect(response.headers['X-Page']).to eql('2')
+        expect(response.headers['X-Count']).to eql('15')
       end
     end
   end

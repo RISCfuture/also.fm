@@ -6,8 +6,16 @@ body#playlists-index, body#user-playlists-index
   #nothing
     margin-bottom: 80px
 
-  .playlists
+  .playlist-containter
     margin-bottom: 80px
+
+  h2 span.pagination
+    font-size: 24px
+    margin-left: 0.5em
+    opacity: 0
+    transition: opacity 0.3s
+  h2:hover span.pagination
+    opacity: 1
 
   .playlist
     margin-bottom: 20px
@@ -47,9 +55,16 @@ body#playlists-index, body#user-playlists-index
   &:checked:active
     background-image: image-url('playlist-check/checked-active.png')
 
+@media only screen and (max-width: 960px)
+  body#playlists-index, body#user-playlists-index
+    h2 span.pagination
+      opacity: 1
 
 @media only screen and (max-width: 768px)
-  body#playlists-index, body#playlists-list
+  body#playlists-index, body#user-playlists-index
+    h2 span.pagination
+      font-size: 14px
+
     #nothing
       margin-bottom: 40px
 

@@ -1,7 +1,20 @@
 {{^empty?}}
     <div class="row">
         <div></div>
-        <h2>{{priority}}</h2>
+        <h2>
+            {{priority}}
+            {{#paginated?}}
+                <span class="pagination">
+                    {{#previous?}}
+                        <a href="#" class="prev-page">◀</a>
+                    {{/previous?}}
+                    {{range_start}}–{{range_end}}
+                    {{#next?}}
+                        <a href="#" class="next-page">►</a>
+                    {{/next?}}
+                </span>
+            {{/paginated?}}
+        </h2>
     </div>
 
     {{{playlists}}}
