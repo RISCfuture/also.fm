@@ -6,11 +6,13 @@ json.listened? playlist.listened_at?
 json.description? playlist.description?
 json.formatted_description simple_format(playlist.description)
 
-json.from_user? !playlist.from_user.nil?
-json.from_user do
-  json.url new_playlist_url(playlist.from_user)
-  json.username playlist.from_user.username
-end if json.from_user?
+unless read_only
+  json.from_user? !playlist.from_user.nil?
+  json.from_user do
+    json.url new_playlist_url(playlist.from_user)
+    json.username playlist.from_user.username
+  end if playlist.from_user
+end
 
 json.tags? playlist.tags.any?
 json.tags do
