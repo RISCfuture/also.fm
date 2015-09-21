@@ -22,7 +22,7 @@ class PlaylistsController < ApplicationController
              nil
            end
 
-    render json: {title: name}
+    render json: {title: name ? name[0, 100] : nil}
   end
 
   private
@@ -39,6 +39,11 @@ class PlaylistsController < ApplicationController
     return nil if !res.status || res.status/100 != 2
 
     html = Nokogiri::HTML(res.body)
-    return html.css('head title').text
+    title = html.css('head title').text
+    return nil unless title
+
+    return title.gsub(/\\u\d{4}/) do |escape|
+      [escape[2..-1].hex].pack('U')
+    end
   end
 end

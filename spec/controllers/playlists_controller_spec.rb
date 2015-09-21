@@ -69,5 +69,23 @@ RSpec.describe PlaylistsController, type: :controller do
       expect(response.status).to eql(200)
       expect(response.body).to eql('{"title":null}')
     end
+
+    it "should decode unicode escapes" do
+      FakeWeb.register_uri :get,
+                           'https://www.youtube.com/user/TheOfficialSkrillex',
+                           body: Rails.root.join('spec', 'fixtures', 'unicode.html').read
+      get :name, url: 'https://www.youtube.com/user/TheOfficialSkrillex', user_id: @user.to_param
+      expect(response.status).to eql(200)
+      expect(response.body).to eql('{"title":"Vijay \\u0026 Sofia Zlatko"}')
+    end
+
+    it "should truncate to 100 characters" do
+      FakeWeb.register_uri :get,
+                           'https://www.youtube.com/user/TheOfficialSkrillex',
+                           body: Rails.root.join('spec', 'fixtures', 'long.html').read
+      get :name, url: 'https://www.youtube.com/user/TheOfficialSkrillex', user_id: @user.to_param
+      expect(response.status).to eql(200)
+      expect(response.body).to eql('{"title":"Vijay Sofia Zlatko, Kasúal feat. Xavier Dunn - Fuckin\' Problems (Instrumental) by Vijay and Sofia Mo"}')
+    end
   end
 end
