@@ -2,5 +2,9 @@ Hello,
 
 You've got new music to listen to. Hear it at <%= @playlist.url %>
 
+<% if @playlist.description %>
+<%= word_wrap @playlist.description, line_width: 72 %>
+<% end %>
+
     Sincerely,
     also.

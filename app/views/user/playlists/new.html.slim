@@ -20,5 +20,9 @@
     div= f.text_field :tag_names, placeholder: 'metal, screaming, omg chester screaming'
 
   .row
+    div= f.label :tag_names, "describe it."
+    div= f.text_area :description, placeholder: 'optional'
+
+  .row
     div
     div= f.submit
