@@ -14,6 +14,8 @@ class PlaylistsController < ApplicationController
 
     name = if title =~ /^iTunes - Music - (.+)$/
              $1
+           elsif title =~ /^(.+) on iTunes$/
+             $1
            elsif title =~ /^(.+) \| Free Listening on SoundCloud$/
              $1
            elsif title =~ /^(.+) [|\-] YouTube$/
