@@ -87,5 +87,14 @@ RSpec.describe PlaylistsController, type: :controller do
       expect(response.status).to eql(200)
       expect(response.body).to eql('{"title":"Vijay Sofia Zlatko, Kasúal feat. Xavier Dunn - Fuckin\' Problems (Instrumental) by Vijay and Sofia Mo"}')
     end
+
+    it "should guess the name of individual songs in iTunes albums" do
+      FakeWeb.register_uri :get,
+                           'https://itunes.apple.com/us/album/xx-two-decades-of-love-metal/id776720311?i=776720349',
+                           body: Rails.root.join('spec', 'fixtures', 'itunes_song.html').read
+      get :name, url: 'https://itunes.apple.com/us/album/xx-two-decades-of-love-metal/id776720311?i=776720349', user_id: @user.to_param
+      expect(response.status).to eql(200)
+      expect(response.body).to eql('{"title":"Wicked Game - XX - Two Decades of Love Metal by HIM"}')
+    end
   end
 end

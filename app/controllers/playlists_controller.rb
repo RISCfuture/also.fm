@@ -8,7 +8,11 @@ class PlaylistsController < ApplicationController
   def name
     return render(json: {title: nil}) unless params[:url].present?
 
-    title = load_url_title(params[:url])
+    uri  = Addressable::URI.parse(params[:url])
+    html = load_url(uri)
+    return render(json: {title: nil}) unless html
+
+    title = load_url_title(html)
     return render(json: {title: nil}) unless title
     title = title.strip.gsub(/\s*\n\s*/, ' ')
 
@@ -24,13 +28,17 @@ class PlaylistsController < ApplicationController
              nil
            end
 
+    if title.include?('iTunes') && (song_title = load_song_title(html, uri))
+      name = "#{song_title} - #{name}"
+    end
+
+
     render json: {title: name ? name[0, 100] : nil}
   end
 
   private
 
-  def load_url_title(url)
-    uri = Addressable::URI.parse(url)
+  def load_url(uri)
     return nil unless %(http https).include?(uri.scheme)
 
     conn = Faraday.new(url: uri.origin) do |f|
@@ -40,12 +48,27 @@ class PlaylistsController < ApplicationController
     res  = conn.get(uri.request_uri)
     return nil if !res.status || res.status/100 != 2
 
-    html = Nokogiri::HTML(res.body)
+    Nokogiri::HTML(res.body)
+  end
+
+  def load_url_title(html)
     title = html.css('head title').text
     return nil unless title
 
     return title.gsub(/\\u\d{4}/) do |escape|
       [escape[2..-1].hex].pack('U')
     end
+  end
+
+  def load_song_title(html, uri)
+    return unless uri.query_values
+
+    song_id = uri.query_values['i']
+    return nil unless song_id
+
+    span = html.css("tr[adam-id=\"#{song_id}\"] span[itemprop=\"name\"]")
+    return nil unless span
+
+    return span.text
   end
 end
