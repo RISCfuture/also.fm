@@ -2,20 +2,20 @@ require 'rails_helper'
 
 RSpec.describe Playlist, type: :model do
   describe '#tag_names' do
-    it "should return a comma-delimited list of names" do
+    it "should return a list of hashtags" do
       playlist = FactoryGirl.create(:playlist)
       FactoryGirl.create :tag, playlist: playlist, name: 'goose'
       FactoryGirl.create :tag, playlist: playlist, name: 'dog'
       playlist.tags(true)
 
-      expect(playlist.tag_names(true)).to eql("goose, dog")
+      expect(playlist.tag_names(true)).to eql("#goose #dog")
     end
   end
 
   context '[hooks]' do
     context '[tag names]' do
       it "should save tags from tag names" do
-        playlist = FactoryGirl.build(:playlist, tag_names: 'foo, bar')
+        playlist = FactoryGirl.build(:playlist, tag_names: '#foo #bar')
         playlist.save!
         expect(playlist.tags.count).to eql(2)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
@@ -25,7 +25,7 @@ RSpec.describe Playlist, type: :model do
       it "should add new tags" do
         playlist = FactoryGirl.create(:playlist)
         FactoryGirl.create :tag, name: 'foo', playlist: playlist
-        playlist.update_attribute :tag_names, 'foo, bar'
+        playlist.update_attribute :tag_names, '#foo #bar'
         expect(playlist.tags.count).to eql(2)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
         expect(playlist.tags.find_by_name('bar')).not_to be_nil
@@ -35,7 +35,7 @@ RSpec.describe Playlist, type: :model do
         playlist = FactoryGirl.create(:playlist)
         FactoryGirl.create :tag, name: 'foo', playlist: playlist
         FactoryGirl.create :tag, name: 'bar', playlist: playlist
-        playlist.update_attribute :tag_names, 'foo'
+        playlist.update_attribute :tag_names, '#foo'
         expect(playlist.tags.count).to eql(1)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
       end

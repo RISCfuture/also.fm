@@ -2,7 +2,7 @@
   div
   - if params[:tag].present?
     h1
-      ' tag: #{params[:tag]}
+      ' hashtag: #{params[:tag]}
       small= link_to "(clear)", playlist_url(@user, tag: nil)
   - else
     h1 #{@user.username}’s list

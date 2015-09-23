@@ -20,9 +20,9 @@
             <p>from <a href="{{from_user.url}}">{{from_user.username}}</a> </p>
         {{/from_user?}}
         {{#tags?}}
-            tags:
+            hashtags:
             {{#tags}}
-                <a href="{{filter_url}}">{{name}}</a>{{^last?}}, {{/last?}}
+                <a href="{{filter_url}}">#{{name}}</a>
             {{/tags}}
         {{/tags?}}
         {{#description?}}

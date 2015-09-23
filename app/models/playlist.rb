@@ -32,13 +32,13 @@ class Playlist < ActiveRecord::Base
 
   def tag_names(reload=false)
     @tag_names = nil if reload
-    @tag_names ||= tags.order('id ASC').map(&:name).join(', ')
+    @tag_names ||= tags.order('id ASC').map { |t| "##{t.name}" }.join(' ')
   end
 
   private
 
   def save_tags
-    new_tags = tag_names.split(/\s*,\s*/)
+    new_tags = tag_names.scan(/#(\w+)/).flatten
     new_tags.each do |name|
       tags.where(name: name).find_or_create
     end

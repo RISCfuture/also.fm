@@ -21,7 +21,7 @@ class Account::PlaylistsController < ApplicationController
     response.headers['X-Count'] = @playlists.count.to_s
 
     @playlists = @playlists.limit(10).offset((page-1)*10)
-    @playlists = @playlists.map(&:playlist) if params[:tag].present?
+    @playlists = @playlists.map(&:playlist).uniq if params[:tag].present?
 
     respond_with @playlists
   end

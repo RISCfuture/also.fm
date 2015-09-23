@@ -23,7 +23,6 @@ json.tags do
       json.filter_url root_url(tag: tag.name)
     end
     json.name tag.name
-    json.last?(tag == playlist.tags.last)
   end
 end
 
