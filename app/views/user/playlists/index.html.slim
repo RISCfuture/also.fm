@@ -1,11 +1,18 @@
 .row
   div
-  - if params[:tag].present?
-    h1
+  h1
+    - if params[:tag].present?
       ' hashtag: #{params[:tag]}
-      small= link_to "(clear)", playlist_url(@user, tag: nil)
-  - else
-    h1 #{@user.username}’s list
+      small= link_to "(clear tag)", playlist_url(@user, tag: nil, liked: params[:liked])
+    - else
+      | #{@user.username}’s list
+
+    = ' '
+    small
+      - if params[:liked].present?
+        = link_to "(also not liked)", playlist_url(@user, tag: params[:tag])
+      - else
+        = link_to "(just liked)", playlist_url(@user, tag: params[:tag], liked: 'true')
 
 .row#nothing
   div

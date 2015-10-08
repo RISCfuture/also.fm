@@ -6,5 +6,5 @@ updateNoneVisibility = ->
 
 $(window).ready ->
     $('[data-priority]').each ->
-        new Playlist $(this), "<%= escape_javascript user_playlists_url(@user, tag: params[:tag].presence, priority: 'REPLACEME', format: 'json') %>".replace('REPLACEME', $(this).attr('data-priority')), $(this).attr('data-name'), ->
+        new Playlist $(this), "<%= escape_javascript user_playlists_url(@user, tag: params[:tag].presence, liked: params[:liked].presence, priority: 'REPLACEME', format: 'json') %>".replace('REPLACEME', $(this).attr('data-priority')), $(this).attr('data-name'), ->
             updateNoneVisibility()

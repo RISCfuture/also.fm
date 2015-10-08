@@ -3,6 +3,7 @@ json.url playlist.url
 
 json.read_only? read_only
 json.listened? playlist.listened_at?
+json.liked? playlist.liked?
 json.description? playlist.description?
 json.formatted_description simple_format(playlist.description)
 
@@ -27,3 +28,4 @@ json.tags do
 end
 
 json.ack_url ack_account_playlist_url(playlist, format: 'json')
+json.like_url like_account_playlist_url(playlist, format: 'json')

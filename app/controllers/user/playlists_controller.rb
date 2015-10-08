@@ -10,6 +10,10 @@ class User::PlaylistsController < ApplicationController
       @playlists = @user.received_playlists.includes(:from_user, :tags)
     end
 
+    if params[:liked].present?
+      @playlists = @playlists.where(liked: true)
+    end
+
     @playlists = @playlists.where(playlists: {priority: params[:priority]}).
         order('playlists.created_at DESC')
 

@@ -21,6 +21,13 @@ body#playlists-index, body#user-playlists-index
     margin-bottom: 20px
     align-items: center
 
+    .playlist-like:not(:checked)
+      opacity: 0
+      transition: opacity 0.3s
+
+    &:hover .playlist-like
+      opacity: 1
+
     &.listened
       opacity: 0.5
 
@@ -54,6 +61,22 @@ body#playlists-index, body#user-playlists-index
     background-image: image-url('playlist-check/checked.png')
   &:checked:active
     background-image: image-url('playlist-check/checked-active.png')
+
+.playlist-like
+  appearance: none
+  background: image-url('like/unchecked.png') no-repeat center center
+  width: 16px
+  height: 16px
+  cursor: pointer
+  margin: 0
+
+  &:active
+    background-image: image-url('like/unchecked-active.png')
+  &:checked
+    background-image: image-url('like/checked.png')
+  &:checked:active
+    background-image: image-url('like/checked-active.png')
+
 
 @media only screen and (max-width: 960px)
   body#playlists-index, body#user-playlists-index

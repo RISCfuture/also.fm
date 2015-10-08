@@ -4,7 +4,7 @@ Rails.application.routes.draw do
   end
   resource :account, only: :destroy do
     resources :playlists, controller: 'account/playlists', only: :index do
-      member { patch :ack }
+      member { patch :ack, :like }
     end
   end
   resource :session, only: [:new, :create, :destroy]

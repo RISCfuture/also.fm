@@ -21,6 +21,8 @@ class root.Playlist
             do (playlist) =>
                 playlist.checked_image = "<%= image_url('playlist-check/checked.png') %>"
                 playlist.unchecked_image = "<%= image_url('playlist-check/unchecked.png') %>"
+                playlist.liked_image = "<%= image_url('like/checked.png') %>"
+                playlist.unliked_image = "<%= image_url('like/unchecked.png') %>"
                 html += HoganTemplates['playlist'].render(playlist)
 
         @element.html HoganTemplates['playlists'].render
@@ -42,6 +44,15 @@ class root.Playlist
                         $(this).attr 'checked', 'checked'
                     else
                         $(this).closest('.playlist').removeClass 'listened'
+                        $(this).removeAttr 'checked'
+
+        @element.find('.playlist-like').click ->
+            $.ajax $(this).attr('data-url'),
+                type: 'PATCH'
+                success: (playlist) =>
+                    if playlist.liked
+                        $(this).attr 'checked', 'checked'
+                    else
                         $(this).removeAttr 'checked'
 
         @element.find('.next-page').click =>

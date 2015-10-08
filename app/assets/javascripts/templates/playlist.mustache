@@ -15,9 +15,21 @@
         {{/read_only?}}
     </div>
     <div class="info">
-        <h1><a href="{{url}}">{{name}}</a></h1>
+        <h1>
+            <a href="{{url}}">{{name}}</a>
+            {{#read_only?}}
+                {{#liked?}}
+                    <img src="{{liked_image}}" />
+                {{/liked?}}
+            {{/read_only?}}
+            {{^read_only?}}
+                <input type="checkbox" name="liked" value="1"
+                       {{#liked?}}checked{{/liked?}}
+                       class="playlist-like" data-url="{{like_url}}" />
+            {{/read_only?}}
+        </h1>
         {{#from_user?}}
-            <p>from <a href="{{from_user.url}}">{{from_user.username}}</a> </p>
+            <p>from <a href="{{from_user.url}}">{{from_user.username}}</a></p>
         {{/from_user?}}
         {{#tags?}}
             hashtags:

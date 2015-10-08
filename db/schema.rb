@@ -11,21 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150922234754) do
+ActiveRecord::Schema.define(version: 20151008050355) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "playlists", force: :cascade do |t|
-    t.integer  "for_user_id",                          null: false
+    t.integer  "for_user_id",                              null: false
     t.integer  "from_user_id"
-    t.string   "url",                                  null: false
+    t.string   "url",                                      null: false
     t.string   "name",         limit: 100
     t.text     "description"
-    t.integer  "priority",     limit: 2,   default: 0, null: false
+    t.integer  "priority",     limit: 2,   default: 0,     null: false
     t.datetime "listened_at"
-    t.datetime "created_at",                           null: false
-    t.datetime "updated_at",                           null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "liked",                    default: false, null: false
   end
 
   add_index "playlists", ["for_user_id", "priority"], name: "index_playlists_on_for_user_id_and_priority", using: :btree

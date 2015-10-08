@@ -18,7 +18,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
         @user = FactoryGirl.create(:user)
         Playlist.delete_all
         15.times.each do |i|
-          playlist = FactoryGirl.create(:playlist, for_user: @user, name: "name#{i}", url: "http://url#{i}.com", created_at: (15-i).days.ago, listened_at: nil, priority: 1)
+          playlist = FactoryGirl.create(:playlist, for_user: @user, name: "name#{i}", url: "http://url#{i}.com", created_at: (15-i).days.ago, listened_at: nil, priority: 1, liked: i == 0)
           FactoryGirl.create(:tag, name: 'tag', playlist: playlist) if i <= 4
         end
 
@@ -40,6 +40,13 @@ RSpec.describe User::PlaylistsController, type: :controller do
         expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(4.downto(0).map { |i| "name#{i}" })
         expect(response.headers['X-Page']).to eql('1')
         expect(response.headers['X-Count']).to eql('5')
+      end
+
+      it "should filter by liked" do
+        get :index, user_id: @user.to_param, liked: 'true', format: 'json', priority: '1'
+        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(%w(name0))
+        expect(response.headers['X-Page']).to eql('1')
+        expect(response.headers['X-Count']).to eql('1')
       end
 
       it "should paginate" do

@@ -1,6 +1,6 @@
 class Account::PlaylistsController < ApplicationController
   before_action :login_required
-  before_action :find_playlist, only: :ack
+  before_action :find_playlist, only: [:ack, :like]
   respond_to :json
 
   def index
@@ -32,6 +32,15 @@ class Account::PlaylistsController < ApplicationController
 
     respond_with(@playlist) do |format|
       format.json { render json: {listened_at: @playlist.listened_at} }
+    end
+  end
+
+  def like
+    @playlist.toggle :liked
+    @playlist.save
+
+    respond_with(@playlist) do |format|
+      format.json { render json: {liked: @playlist.liked} }
     end
   end
 
