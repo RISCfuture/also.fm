@@ -1,4 +1,4 @@
-ruby '2.2.3'
+ruby '2.2.4'
 source 'https://rubygems.org'
 
 gem 'rails', '4.2.5'
@@ -10,6 +10,7 @@ gem 'url_validation'
 gem 'email_validation'
 gem 'find_or_create_on_scopes'
 
+gem 'sprockets-rails', '< 3.0' # incompatible with hogan
 gem 'slim-rails'
 gem 'sass-rails'
 gem 'coffee-rails'
