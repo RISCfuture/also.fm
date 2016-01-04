@@ -50,7 +50,3 @@ group :test do
   gem 'fakeweb'
   gem 'timecop'
 end
-
-group :production do
-  gem 'rails_12factor'
-end
