@@ -1,7 +1,7 @@
-ruby '2.2.4'
+ruby '2.3.1'
 source 'https://rubygems.org'
 
-gem 'rails', '4.2.5.1'
+gem 'rails', '4.2.6'
 gem 'responders'
 gem 'puma'
 
