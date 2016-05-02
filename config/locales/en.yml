@@ -92,9 +92,9 @@ en:
   models:
     playlist:
       priorities:
-      - it’s whatever
-      - good stuff
-      - OMGLISTENNAO
+      - 💁
+      - 👌
+      - 🔑
   mailers:
     playlist:
       new_playlist:
