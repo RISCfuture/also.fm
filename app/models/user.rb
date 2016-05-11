@@ -10,7 +10,7 @@ class User < ActiveRecord::Base
 
   def self.reserved_names
     Rails.application.routes.routes.
-        map { |r| r.path.spec.to_s.split('/')[1].try! :sub, /\(.+$/, '' }.
+        map { |r| r.path.spec.to_s.split('/')[1]&.sub /\(.+$/, '' }.
         compact.uniq.reject { |p| p.start_with?(':') }
   end
 
