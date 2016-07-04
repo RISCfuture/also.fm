@@ -1,4 +1,4 @@
-class ConvertTagsToHashtags < ActiveRecord::Migration
+class ConvertTagsToHashtags < ActiveRecord::Migration[4.2]
   def up
     Tag.find_each do |tag|
       tag.name.scan(/#(\w+)/).each do |hashtag|

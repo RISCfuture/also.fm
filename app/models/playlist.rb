@@ -1,12 +1,10 @@
-class Playlist < ActiveRecord::Base
+class Playlist < ApplicationRecord
   belongs_to :for_user, class_name: 'User', inverse_of: :received_playlists
-  belongs_to :from_user, class_name: 'User', inverse_of: :sent_playlists
+  belongs_to :from_user, class_name: 'User', inverse_of: :sent_playlists, optional: true
   has_many :tags, dependent: :delete_all, inverse_of: :playlist
 
   accepts_nested_attributes_for :tags, reject_if: :all_blank
 
-  validates :for_user,
-            presence: true
   validates :url,
             presence:   true,
             url:        true,
@@ -30,7 +28,7 @@ class Playlist < ActiveRecord::Base
   before_validation :set_name
   after_create :send_email
 
-  def tag_names(reload=false)
+  def tag_names(reload: false)
     @tag_names = nil if reload
     @tag_names ||= tags.order('id ASC').map { |t| "##{t.name}" }.join(' ')
   end

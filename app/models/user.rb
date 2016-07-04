@@ -1,6 +1,6 @@
 require 'digest/sha2'
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   SALT = '5d683ac93a'
 
   attr_accessor :password, :password_confirmation

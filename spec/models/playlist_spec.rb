@@ -6,9 +6,9 @@ RSpec.describe Playlist, type: :model do
       playlist = FactoryGirl.create(:playlist)
       FactoryGirl.create :tag, playlist: playlist, name: 'goose'
       FactoryGirl.create :tag, playlist: playlist, name: 'dog'
-      playlist.tags(true)
+      playlist.tags.reload
 
-      expect(playlist.tag_names(true)).to eql("#goose #dog")
+      expect(playlist.tag_names(reload: true)).to eql("#goose #dog")
     end
   end
 
@@ -25,7 +25,7 @@ RSpec.describe Playlist, type: :model do
       it "should add new tags" do
         playlist = FactoryGirl.create(:playlist)
         FactoryGirl.create :tag, name: 'foo', playlist: playlist
-        playlist.update_attribute :tag_names, '#foo #bar'
+        playlist.update tag_names: '#foo #bar'
         expect(playlist.tags.count).to eql(2)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
         expect(playlist.tags.find_by_name('bar')).not_to be_nil
@@ -35,7 +35,7 @@ RSpec.describe Playlist, type: :model do
         playlist = FactoryGirl.create(:playlist)
         FactoryGirl.create :tag, name: 'foo', playlist: playlist
         FactoryGirl.create :tag, name: 'bar', playlist: playlist
-        playlist.update_attribute :tag_names, '#foo'
+        playlist.update tag_names: '#foo'
         expect(playlist.tags.count).to eql(1)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
       end

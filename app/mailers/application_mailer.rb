@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
   default from: 'noreply@also.fm'
-  # layout 'mailer'
+  layout 'mailer'
 end

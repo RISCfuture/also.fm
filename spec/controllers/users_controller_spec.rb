@@ -17,7 +17,7 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "should create and log in a new user" do
-      post :create, user: @user_params
+      post :create, params: {user: @user_params}
       expect(response).to redirect_to(root_url)
       user = User.first
       expect(user.username).to eql(@user_params[:username])
@@ -25,13 +25,13 @@ RSpec.describe UsersController, type: :controller do
     end
 
     it "should redirect to the :next parameter" do
-      post :create, user: @user_params, next: '/foo/bar'
+      post :create, params: {user: @user_params, next: '/foo/bar'}
       expect(response).to redirect_to('/foo/bar')
     end
 
     it "should handle errors" do
       User.delete_all
-      post :create, user: @user_params.merge(password: nil)
+      post :create, params: {user: @user_params.merge(password: nil)}
       expect(response).to render_template('new')
       expect(User.count).to be_zero
     end

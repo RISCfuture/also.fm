@@ -14,7 +14,7 @@ RSpec.describe Account::PlaylistsController, type: :controller do
     end
 
     it "should require a logged-in user" do
-      get :index, format: 'json'
+      get :index, params: {format: 'json'}
       expect(response.status).to eql(403)
     end
 
@@ -23,7 +23,7 @@ RSpec.describe Account::PlaylistsController, type: :controller do
       render_views
 
       it "should load the current user's playlists" do
-        get :index, format: 'json', priority: '1'
+        get :index, params: {format: 'json', priority: '1'}
         expect(response.status).to eql(200)
         expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(14.downto(5).map { |i| "name#{i}" })
         expect(response.headers['X-Page']).to eql('1')
@@ -31,14 +31,14 @@ RSpec.describe Account::PlaylistsController, type: :controller do
       end
 
       it "should filter by tag" do
-        get :index, tag: 'tag', format: 'json', priority: '1'
+        get :index, params: {tag: 'tag', format: 'json', priority: '1'}
         expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(4.downto(0).map { |i| "name#{i}" })
         expect(response.headers['X-Page']).to eql('1')
         expect(response.headers['X-Count']).to eql('5')
       end
 
       it "should paginate" do
-        get :index, user_id: @user.to_param, format: 'json', priority: '1', page: '2'
+        get :index, params: {user_id: @user.to_param, format: 'json', priority: '1', page: '2'}
         expect(response.status).to eql(200)
         expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(4.downto(0).map { |i| "name#{i}" })
         expect(response.headers['X-Page']).to eql('2')
@@ -49,12 +49,12 @@ RSpec.describe Account::PlaylistsController, type: :controller do
 
   describe '#ack' do
     before :each do
-      @user = FactoryGirl.create(:user)
+      @user     = FactoryGirl.create(:user)
       @playlist = FactoryGirl.create(:playlist, for_user: @user, listened_at: nil)
     end
 
     it "should require a logged-in user" do
-      patch :ack, id: @playlist.to_param, format: 'json'
+      patch :ack, params: {id: @playlist.to_param, format: 'json'}
       expect(response.status).to eql(403)
     end
 
@@ -62,15 +62,15 @@ RSpec.describe Account::PlaylistsController, type: :controller do
       before(:each) { login_as @user }
 
       it "should mark a song as listened" do
-        patch :ack, id: @playlist.to_param, format: 'json'
+        patch :ack, params: {id: @playlist.to_param, format: 'json'}
         expect(@playlist.reload.listened_at).to eql(Time.now)
         expect(response.status).to eql(200)
-        expect(response.body).to eql('{"listened_at":"1982-10-19T12:13:00.000-07:00"}')
+        expect(response.body).to eql('{"listened_at":"1982-10-19T12:13:00.000Z"}')
       end
 
       it "should not allow you to ack someone else's song" do
         playlist = FactoryGirl.create(:playlist, listened_at: nil)
-        patch :ack, id: playlist.to_param, format: 'json'
+        patch :ack, params: {id: playlist.to_param, format: 'json'}
         expect(response.status).to eql(404)
         expect(playlist.reload.listened_at).to be_nil
       end

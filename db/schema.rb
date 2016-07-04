@@ -1,4 +1,3 @@
-# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -27,17 +26,15 @@ ActiveRecord::Schema.define(version: 20151008050355) do
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
     t.boolean  "liked",                    default: false, null: false
+    t.index ["for_user_id", "priority"], name: "index_playlists_on_for_user_id_and_priority", using: :btree
+    t.index ["for_user_id", "url"], name: "index_playlists_on_for_user_id_and_url", unique: true, using: :btree
   end
-
-  add_index "playlists", ["for_user_id", "priority"], name: "index_playlists_on_for_user_id_and_priority", using: :btree
-  add_index "playlists", ["for_user_id", "url"], name: "index_playlists_on_for_user_id_and_url", unique: true, using: :btree
 
   create_table "tags", force: :cascade do |t|
     t.integer "playlist_id",            null: false
     t.string  "name",        limit: 50, null: false
+    t.index ["playlist_id", "name"], name: "index_tags_on_playlist_id_and_name", unique: true, using: :btree
   end
-
-  add_index "tags", ["playlist_id", "name"], name: "index_tags_on_playlist_id_and_name", unique: true, using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "username",         limit: 16, null: false
