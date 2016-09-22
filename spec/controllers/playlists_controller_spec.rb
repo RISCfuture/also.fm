@@ -33,7 +33,16 @@ RSpec.describe PlaylistsController, type: :controller do
                            body: Rails.root.join('spec', 'fixtures', 'itunes.html').read
       get :name, params: {url: 'https://itunes.apple.com/us/artist/vast/id149550', user_id: @user.to_param}
       expect(response.status).to eql(200)
-      expect(response.body).to eql('{"title":"VAST"}')
+      expect(response.body).to eql('{"title":"Sexual (feat. Dyo) - Single by NEIKED"}')
+    end
+
+    it "should guess a name for an Apple Music playlist" do
+      FakeWeb.register_uri :get,
+                           'https://itunes.apple.com/us/playlist/chill-house/idpl.bd55c25265aa4de8b3fc3e0960751846',
+                           body: Rails.root.join('spec', 'fixtures', 'itunes_playlist.html').read
+      get :name, params: {url: 'https://itunes.apple.com/us/playlist/chill-house/idpl.bd55c25265aa4de8b3fc3e0960751846', user_id: @user.to_param}
+      expect(response.status).to eql(200)
+      expect(response.body).to eql('{"title":"Chill House by Apple Music Dance"}')
     end
 
     it "should guess a name for a SoundCloud URL" do
@@ -81,11 +90,11 @@ RSpec.describe PlaylistsController, type: :controller do
 
     it "should truncate to 100 characters" do
       FakeWeb.register_uri :get,
-                           'https://www.youtube.com/user/TheOfficialSkrillex',
+                           'https://itunes.apple.com/us/album/cold-water-feat.-justin-bieber/id1151620671?i=1151620691',
                            body: Rails.root.join('spec', 'fixtures', 'long.html').read
-      get :name, params: {url: 'https://www.youtube.com/user/TheOfficialSkrillex', user_id: @user.to_param}
+      get :name, params: {url: 'https://itunes.apple.com/us/album/cold-water-feat.-justin-bieber/id1151620671?i=1151620691', user_id: @user.to_param}
       expect(response.status).to eql(200)
-      expect(response.body).to eql('{"title":"Vijay Sofia Zlatko, Kasúal feat. Xavier Dunn - Fuckin\' Problems (Instrumental) by Vijay and Sofia Mo"}')
+      expect(response.body).to eql('{"title":"Cold Water (feat. Justin Bieber \\u0026 MØ) [Lost Frequencies Remix] - Cold Water (feat. Justin Bieber \\u0026 M"}')
     end
 
     it "should guess the name of individual songs in iTunes albums" do

@@ -16,9 +16,13 @@ class PlaylistsController < ApplicationController
     return render(json: {title: nil}) unless title
     title = title.strip.gsub(/\s*\n\s*/, ' ')
 
+    title = load_meta_title(html) if title == 'Connecting to the iTunes Store.'
+
     name = if title =~ /^iTunes - Music - (.+)$/
              $1
            elsif title =~ /^(.+) on iTunes$/
+             $1
+           elsif title =~ /^(.+) on Apple Music$/
              $1
            elsif title =~ /^(.+) \| Free Listening on SoundCloud$/
              $1
@@ -28,7 +32,7 @@ class PlaylistsController < ApplicationController
              nil
            end
 
-    if title.include?('iTunes') && (song_title = load_song_title(html, uri))
+    if (title.include?('iTunes') || title.include?('Apple Music')) && (song_title = load_song_title(html, uri))
       name = "#{song_title} - #{name}"
     end
 
@@ -69,6 +73,12 @@ class PlaylistsController < ApplicationController
     span = html.css("tr[adam-id=\"#{song_id}\"] span[itemprop=\"name\"]")
     return nil unless span
 
-    return span.text
+    return span[0].text
+  end
+
+  def load_meta_title(html)
+    meta = html.css('meta[property="og:title"]')
+    return nil unless meta
+    return meta[0].attributes['content'].text
   end
 end
