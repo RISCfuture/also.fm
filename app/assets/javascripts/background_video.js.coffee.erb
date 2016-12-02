@@ -5,17 +5,17 @@ videos.push "<%= video_url File.join('backgrounds', File.basename(video)) %>"
 <% end %>
 
 toggleMovie = ->
-    if window.innerWidth > 960 && $('#background').length == 0
-        if new Date().getMonth() == 9 && new Date().getDate() == 21 # rachel's birthday, oct 21
-            videoURL = "<%= video_url 'backgrounds-special/firework.mp4' %>"
-        else
-            videoURL = videos[Math.floor(Math.random()*videos.length)]
+  if window.innerWidth > 960 && $('#background').length == 0
+    if new Date().getMonth() == 9 && new Date().getDate() == 21 # rachel's birthday, oct 21
+      videoURL = "<%= video_url 'backgrounds-special/firework.mp4' %>"
+    else
+      videoURL = videos[Math.floor(Math.random()*videos.length)]
 
-        video = $('<video/>').attr(id: 'background', autoplay: 'autoplay', loop: 'loop')
-        $('<source/>').attr(src: videoURL, type: 'video/mp4').appendTo video
-        video.prependTo $('body')
-    else if window.innerWidth <= 960 && $('#background').length > 0
-        $('#background').remove()
+    video = $('<video/>').attr(id: 'background', autoplay: 'autoplay', loop: 'loop')
+    $('<source/>').attr(src: videoURL, type: 'video/mp4').appendTo video
+    video.prependTo $('body')
+  else if window.innerWidth <= 960 && $('#background').length > 0
+    $('#background').remove()
 
 $(window).resize toggleMovie
 toggleMovie()

@@ -1,44 +1,41 @@
 <div class="playlist row force-horiz">
     <div class="checkmark">
-        {{#read_only?}}
-            {{#listened?}}
+        {{#if read_only?}}
+            {{#if listened?}}
                 <img src="{{checked_image}}" />
-            {{/listened?}}
-            {{^listened?}}
+            {{else}}
                 <img src="{{unchecked_image}}" />
-            {{/listened?}}
-        {{/read_only?}}
-        {{^read_only?}}
+            {{/if}}
+        {{else}}
             <input type="checkbox" name="listened" value="1"
-                   {{#listened?}}checked{{/listened?}}
+                   {{#if listened?}}checked{{/if}}
                    class="playlist-check" data-url="{{ack_url}}" />
-        {{/read_only?}}
+        {{/if}}
     </div>
     <div class="info">
         <h1>
             <a href="{{url}}">{{name}}</a>
-            {{#read_only?}}
-                {{#liked?}}
+            {{#if read_only?}}
+                {{#if liked?}}
                     <img src="{{liked_image}}" />
-                {{/liked?}}
-            {{/read_only?}}
-            {{^read_only?}}
+                {{/if}}
+            {{else}}
                 <input type="checkbox" name="liked" value="1"
-                       {{#liked?}}checked{{/liked?}}
+                       {{#if liked?}}checked{{/if}}
                        class="playlist-like" data-url="{{like_url}}" />
-            {{/read_only?}}
+            {{/if}}
         </h1>
-        {{#from_user?}}
+        {{#if from_user?}}
             <p>from <a href="{{from_user.url}}">{{from_user.username}}</a></p>
-        {{/from_user?}}
-        {{#tags?}}
+        {{/if}}
+        {{#if tags?}}
             hashtags:
-            {{#tags}}
+            {{#each tags}}
                 <a href="{{filter_url}}">#{{name}}</a>
-            {{/tags}}
-        {{/tags?}}
-        {{#description?}}
+            {{/each}}
+        {{/if}}
+        {{#if description?}}
             {{{formatted_description}}}
-        {{/description?}}
+        {{/if}}
     </div>
 </div>

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 
 # FRAMEWORK
-gem 'rails', '5.0.0'
+gem 'rails', '5.0.0.1'
 gem 'responders'
 
 # MODELS
@@ -11,7 +11,7 @@ gem 'email_validation'
 gem 'find_or_create_on_scopes'
 
 # ASSETS
-gem 'sprockets-rails', '< 3.0' # incompatible with hogan
+gem 'sprockets-rails'
 # HTML
 gem 'slim-rails'
 # CSS
@@ -25,7 +25,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 # JSON/AJAX
 gem 'jbuilder'
-gem 'hogan_assets'
+gem 'handlebars_assets'
 
 # EXTERNAL
 gem 'faraday'

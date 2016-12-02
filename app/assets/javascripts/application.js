@@ -19,7 +19,7 @@
 //= require background_video
 //= require playlist_manager
 //
-//= require hogan
+//= require handlebars.runtime
 //= require_tree ./templates
 //
 //= require_self

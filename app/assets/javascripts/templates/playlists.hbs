@@ -1,21 +1,23 @@
-{{^empty?}}
+{{#unless empty?}}
     <div class="row">
         <div></div>
         <h2>
             {{priority}}
-            {{#paginated?}}
+            {{#if paginated?}}
                 <span class="pagination">
-                    {{#previous?}}
+                    {{#if previous?}}
                         <a href="#" class="prev-page">◀</a>
-                    {{/previous?}}
+                    {{/if}}
                     {{range_start}}–{{range_end}}
-                    {{#next?}}
+                    {{#if next?}}
                         <a href="#" class="next-page">►</a>
-                    {{/next?}}
+                    {{/if}}
                 </span>
-            {{/paginated?}}
+            {{/if}}
         </h2>
     </div>
 
-    {{{playlists}}}
-{{/empty?}}
+    {{#each playlists}}
+        {{> _playlist}}
+    {{/each}}
+{{/unless}}

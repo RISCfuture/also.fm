@@ -1,65 +1,63 @@
 root = exports ? this
 
 class root.Playlist
-    constructor: (@element, @url, @title, @callback) ->
-        this.reload()
-        @page = 1
+  constructor: (@element, @url, @title, @callback) ->
+    this.reload()
+    @page = 1
 
-    reload: ->
-        $.ajax @url,
-            data: {page: @page}
-            success: (playlists, _, xhr) =>
-                this.render playlists, parseInt(xhr.getResponseHeader('X-Page')), parseInt(xhr.getResponseHeader('X-Count'))
-                @callback(playlists)
-            error: (playlists) =>
-                this.render [], 1, 0
-                @callback([])
+  reload: ->
+    $.ajax @url,
+      data: {page: @page}
+      success: (playlists, _, xhr) =>
+        this.render playlists, parseInt(xhr.getResponseHeader('X-Page')), parseInt(xhr.getResponseHeader('X-Count'))
+        @callback(playlists)
+      error: (playlists) =>
+        this.render [], 1, 0
+        @callback([])
 
-    render: (playlists, page, count) ->
-        html = ""
-        for playlist in playlists
-            do (playlist) =>
-                playlist.checked_image = "<%= image_url('playlist-check/checked.png') %>"
-                playlist.unchecked_image = "<%= image_url('playlist-check/unchecked.png') %>"
-                playlist.liked_image = "<%= image_url('like/checked.png') %>"
-                playlist.unliked_image = "<%= image_url('like/unchecked.png') %>"
-                html += HoganTemplates['playlist'].render(playlist)
+  render: (playlists, page, count) ->
+    for playlist in playlists
+      do (playlist) =>
+        playlist.checked_image = "<%= image_url('playlist-check/checked.png') %>"
+        playlist.unchecked_image = "<%= image_url('playlist-check/unchecked.png') %>"
+        playlist.liked_image = "<%= image_url('like/checked.png') %>"
+        playlist.unliked_image = "<%= image_url('like/unchecked.png') %>"
 
-        @element.html HoganTemplates['playlists'].render
-            'empty?': count == 0
-            priority: @title
-            playlists: html
-            'paginated?': count > 10
-            'previous?': page > 1
-            'next?': page < Math.floor(count/10) + 1
-            range_start: numberWithDelimiter((page-1)*10 + 1)
-            range_end: numberWithDelimiter((page-1)*10 + 11)
+    @element.html HandlebarsTemplates['playlists']
+      'empty?':     count == 0
+      priority:     @title
+      playlists:    playlists
+      'paginated?': count > 10
+      'previous?':  page > 1
+      'next?':      page < Math.floor(count/10) + 1
+      range_start:  numberWithDelimiter((page - 1)*10 + 1)
+      range_end:    numberWithDelimiter((page - 1)*10 + 11)
 
-        @element.find('.playlist-check').click ->
-            $.ajax $(this).attr('data-url'),
-                type: 'PATCH'
-                success: (playlist) =>
-                    if playlist.listened_at?
-                        $(this).closest('.playlist').addClass 'listened'
-                        $(this).attr 'checked', 'checked'
-                    else
-                        $(this).closest('.playlist').removeClass 'listened'
-                        $(this).removeAttr 'checked'
+    @element.find('.playlist-check').click ->
+      $.ajax $(this).attr('data-url'),
+        type: 'PATCH'
+        success: (playlist) =>
+          if playlist.listened_at?
+            $(this).closest('.playlist').addClass 'listened'
+            $(this).attr 'checked', 'checked'
+          else
+            $(this).closest('.playlist').removeClass 'listened'
+            $(this).removeAttr 'checked'
 
-        @element.find('.playlist-like').click ->
-            $.ajax $(this).attr('data-url'),
-                type: 'PATCH'
-                success: (playlist) =>
-                    if playlist.liked
-                        $(this).attr 'checked', 'checked'
-                    else
-                        $(this).removeAttr 'checked'
+    @element.find('.playlist-like').click ->
+      $.ajax $(this).attr('data-url'),
+        type: 'PATCH'
+        success: (playlist) =>
+          if playlist.liked
+            $(this).attr 'checked', 'checked'
+          else
+            $(this).removeAttr 'checked'
 
-        @element.find('.next-page').click =>
-            @page++
-            this.reload()
-            return false
-        @element.find('.prev-page').click =>
-            @page--
-            this.reload()
-            return false
+    @element.find('.next-page').click =>
+      @page++
+      this.reload()
+      return false
+    @element.find('.prev-page').click =>
+      @page--
+      this.reload()
+      return false

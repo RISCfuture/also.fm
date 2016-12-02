@@ -45,7 +45,7 @@ class PlaylistsController < ApplicationController
   def load_url(uri)
     return nil unless %(http https).include?(uri.scheme)
 
-    conn = Faraday.new(url: uri.origin) do |f|
+    conn = Faraday.new(url: uri.origin, ssl: {verify: false}) do |f|
       f.use FaradayMiddleware::FollowRedirects
       f.adapter Faraday.default_adapter
     end
