@@ -8,7 +8,7 @@ class PlaylistsController < ApplicationController
   def name
     return render(json: {title: nil}) unless params[:url].present?
 
-    uri  = Addressable::URI.parse(params[:url])
+    uri  = Addressable::URI.parse(params[:url].strip)
     html = load_url(uri)
     return render(json: {title: nil}) unless html
 

@@ -25,6 +25,7 @@ class Playlist < ApplicationRecord
   attr_accessor :tag_names
   after_save :save_tags
 
+  before_validation { |u| u.url = u.url&.strip }
   before_validation :set_name
   after_create :send_email
 
