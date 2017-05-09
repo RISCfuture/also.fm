@@ -1,7 +1,14 @@
 source 'https://rubygems.org'
 
+git_source(:github) do |repo_name|
+  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
+  "https://github.com/#{repo_name}.git"
+end
+
 # FRAMEWORK
-gem 'rails', '5.0.0.1'
+gem 'rails', '5.1.1'
+
+# CONTROLLERS
 gem 'responders'
 
 # MODELS
@@ -44,9 +51,7 @@ group :development do
   gem 'binding_of_caller'
 
   # CHANGE WATCHING
-  gem 'spring'
   gem 'listen'
-  gem 'spring-watcher-listen'
 end
 
 group :doc do
@@ -69,4 +74,10 @@ group :test do
 
   # TIME
   gem 'timecop'
+end
+
+group :production do
+  # CACHING
+  gem 'redis-rails'
+  gem 'rack-cache', require: 'rack/cache'
 end

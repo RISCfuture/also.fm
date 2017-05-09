@@ -2,7 +2,7 @@
   div
   h1 Let’s get started
 
-= form_for @user do |f|
+= form_with model: @user, local: true do |f|
   .row
     div= f.label :username
     div= f.text_field :username, required: true, maxlength: 16

@@ -5,15 +5,15 @@
   - else
     h1 Welcome back.
 
-= form_tag session_url, method: :post do
+= form_with url: session_url, method: :post, local: true do |f|
   .row
-    div= label_tag 'username', "username"
-    div= text_field_tag 'username', @username, required: true, maxlength: 16
+    div= f.label :username, "username"
+    div= f.text_field :username, value: @username, required: true, maxlength: 16
 
   .row
-    div= label_tag 'password', "password"
-    div= password_field_tag 'password', '', required: true
+    div= f.label :password, "password"
+    div= f.password_field :password, value: '', required: true
 
   .row
     div
-    div= submit_tag(@username ? try_again : "enter")
+    div= f.submit(@username ? try_again : "enter")
