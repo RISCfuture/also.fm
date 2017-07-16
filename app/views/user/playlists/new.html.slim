@@ -5,11 +5,11 @@
 = form_with model: @playlist, url: user_playlists_url(@user), method: :post, local: true do |f|
   .row
     div= f.label :url, "link it."
-    div= f.url_field :url, required: true
+    div= f.url_field :url, required: true, id: 'playlist_url'
 
   .row
     div= f.label :name, "name it."
-    div= f.text_field :name, placeholder: 'optional', maxlength: 100
+    div= f.text_field :name, placeholder: 'optional', maxlength: 100, id: 'playlist_name'
 
   .row
     div= f.label :priority, "prioritize it."

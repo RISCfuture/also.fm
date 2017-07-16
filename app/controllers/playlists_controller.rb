@@ -32,7 +32,7 @@ class PlaylistsController < ApplicationController
              nil
            end
 
-    if (title.include?('iTunes') || title.include?('Apple Music')) && (song_title = load_song_title(html, uri))
+    if (title.include?('iTunes') || title.include?('Apple Music')) && (song_title, _artist, _album = load_song_title(html, uri))
       name = "#{song_title} - #{name}"
     end
 
@@ -70,10 +70,15 @@ class PlaylistsController < ApplicationController
     song_id = uri.query_values['i']
     return nil unless song_id
 
-    span = html.css("tr[adam-id=\"#{song_id}\"] span[itemprop=\"name\"]")
-    return nil unless span
+    json = html.css('#shoebox-ember-data-store').first&.content or return nil
+    json = JSON.parse(json)
 
-    return span[0].text
+    album_name = json['data']['attributes']['name']
+
+    record = json['included'].detect {|r| r['type'] == 'song' && r['id'].to_s == song_id.to_s} or return nil
+    song_name   = record['attributes']['name']
+    artist_name = record['attributes']['artistName']
+    return song_name, artist_name, album_name
   end
 
   def load_meta_title(html)
