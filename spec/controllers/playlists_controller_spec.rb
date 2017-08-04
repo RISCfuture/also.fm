@@ -33,7 +33,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            body: Rails.root.join('spec', 'fixtures', 'itunes.html').read
       get :name, params: {url: 'https://itunes.apple.com/us/artist/vast/id149550', user_id: @user.to_param}
       expect(response.status).to eql(200)
-      expect(response.body).to eql('{"title":"Sexual (feat. Dyo) - Single by NEIKED"}')
+      expect(response.body).to eql('{"title":"VAST"}')
     end
 
     it "should guess a name for an Apple Music playlist" do
@@ -47,11 +47,11 @@ RSpec.describe PlaylistsController, type: :controller do
 
     it "should guess a name for a SoundCloud URL" do
       FakeWeb.register_uri :get,
-                           'https://soundcloud.com/chidde/josef-salvat-open-season-bootleg-mix',
+                           'https://soundcloud.com/nba-youngboy/graffiti',
                            body: Rails.root.join('spec', 'fixtures', 'soundcloud.html').read
-      get :name, params: {url: 'https://soundcloud.com/chidde/josef-salvat-open-season-bootleg-mix', user_id: @user.to_param}
+      get :name, params: {url: 'https://soundcloud.com/nba-youngboy/graffiti', user_id: @user.to_param}
       expect(response.status).to eql(200)
-      expect(response.body).to eql('{"title":"Josef Salvat - Open Season [Bootleg Mix] by Chiddeh"}')
+      expect(response.body).to eql('{"title":"Graffiti by YoungBoy Never Broke Again"}')
     end
 
     it "should suggest nil for another URL" do
@@ -81,11 +81,11 @@ RSpec.describe PlaylistsController, type: :controller do
 
     it "should decode unicode escapes" do
       FakeWeb.register_uri :get,
-                           'https://www.youtube.com/user/TheOfficialSkrillex',
+                           'https://soundcloud.com/vijayandsofia/vijay-sofia-notte-world-of-colors',
                            body: Rails.root.join('spec', 'fixtures', 'unicode.html').read
-      get :name, params: {url: 'https://www.youtube.com/user/TheOfficialSkrillex', user_id: @user.to_param}
+      get :name, params: {url: 'https://soundcloud.com/vijayandsofia/vijay-sofia-notte-world-of-colors', user_id: @user.to_param}
       expect(response.status).to eql(200)
-      expect(response.body).to eql('{"title":"Vijay \\u0026 Sofia Zlatko"}')
+      expect(response.body).to eql('{"title":"Vijay \\u0026 Sofia, Notte - World Of Colors by Vijay and Sofia"}')
     end
 
     it "should truncate to 100 characters" do
