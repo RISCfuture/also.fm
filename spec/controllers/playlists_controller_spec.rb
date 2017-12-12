@@ -3,7 +3,7 @@ require 'rails_helper'
 RSpec.describe PlaylistsController, type: :controller do
   describe '#index' do
     it "should render the index page if logged in" do
-      login_as FactoryGirl.create(:user)
+      login_as FactoryBot.create(:user)
       get :index
       expect(response.status).to eql(200)
       expect(response).to render_template('index')
@@ -17,7 +17,7 @@ RSpec.describe PlaylistsController, type: :controller do
   end
 
   describe '#name' do
-    before(:each) { @user = FactoryGirl.create(:user) }
+    before(:each) { @user = FactoryBot.create(:user) }
     it "should guess a name for a YouTube URL" do
       FakeWeb.register_uri :get,
                            'https://www.youtube.com/user/TheOfficialSkrillex',

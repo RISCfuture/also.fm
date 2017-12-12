@@ -1,4 +1,4 @@
-FactoryGirl.define do
+FactoryBot.define do
   factory :playlist do
     association :for_user, factory: :user
     sequence(:url) { |i| FFaker::Internet.http_url + "/#{i}" }

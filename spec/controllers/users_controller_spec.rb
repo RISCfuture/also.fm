@@ -13,7 +13,7 @@ RSpec.describe UsersController, type: :controller do
   describe '#create' do
     before(:each) do
       User.delete_all
-      @user_params = FactoryGirl.attributes_for(:user)
+      @user_params = FactoryBot.attributes_for(:user)
     end
 
     it "should create and log in a new user" do

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe AccountsController, type: :controller do
   describe '#destroy' do
-    before(:each) { login_as(@user = FactoryGirl.create(:user)) }
+    before(:each) { login_as(@user = FactoryBot.create(:user)) }
 
     it "should delete the current user's account" do
       delete :destroy

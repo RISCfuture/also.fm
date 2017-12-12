@@ -3,14 +3,14 @@ require 'rails_helper'
 RSpec.describe Account::PlaylistsController, type: :controller do
   describe '#index' do
     before :all do
-      @user = FactoryGirl.create(:user)
+      @user = FactoryBot.create(:user)
       15.times.each do |i|
-        playlist = FactoryGirl.create(:playlist, for_user: @user, name: "name#{i}", url: "http://url#{i}.com", created_at: (15-i).days.ago, listened_at: nil, priority: 1)
-        FactoryGirl.create(:tag, name: 'tag', playlist: playlist) if i <= 4
+        playlist = FactoryBot.create(:playlist, for_user: @user, name: "name#{i}", url: "http://url#{i}.com", created_at: (15-i).days.ago, listened_at: nil, priority: 1)
+        FactoryBot.create(:tag, name: 'tag', playlist: playlist) if i <= 4
       end
 
-      FactoryGirl.create :playlist, for_user: @user, priority: 2
-      FactoryGirl.create :playlist, for_user: @user, listened_at: Time.now
+      FactoryBot.create :playlist, for_user: @user, priority: 2
+      FactoryBot.create :playlist, for_user: @user, listened_at: Time.now
     end
 
     it "should require a logged-in user" do
@@ -49,8 +49,8 @@ RSpec.describe Account::PlaylistsController, type: :controller do
 
   describe '#ack' do
     before :each do
-      @user     = FactoryGirl.create(:user)
-      @playlist = FactoryGirl.create(:playlist, for_user: @user, listened_at: nil)
+      @user     = FactoryBot.create(:user)
+      @playlist = FactoryBot.create(:playlist, for_user: @user, listened_at: nil)
     end
 
     it "should require a logged-in user" do
@@ -69,7 +69,7 @@ RSpec.describe Account::PlaylistsController, type: :controller do
       end
 
       it "should not allow you to ack someone else's song" do
-        playlist = FactoryGirl.create(:playlist, listened_at: nil)
+        playlist = FactoryBot.create(:playlist, listened_at: nil)
         patch :ack, params: {id: playlist.to_param, format: 'json'}
         expect(response.status).to eql(404)
         expect(playlist.reload.listened_at).to be_nil

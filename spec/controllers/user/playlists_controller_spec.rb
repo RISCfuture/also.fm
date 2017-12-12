@@ -5,7 +5,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
   describe '#index' do
     context '[HTML]' do
       it "should render the index template" do
-        user = FactoryGirl.create(:user)
+        user = FactoryBot.create(:user)
         get :index, params: {user_id: user.to_param}
         expect(response.status).to eql(200)
         expect(response).to render_template('index')
@@ -15,14 +15,14 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
     context '[JSON]' do
       before :all do
-        @user = FactoryGirl.create(:user)
+        @user = FactoryBot.create(:user)
         Playlist.delete_all
         15.times.each do |i|
-          playlist = FactoryGirl.create(:playlist, for_user: @user, name: "name#{i}", url: "http://url#{i}.com", created_at: (15-i).days.ago, listened_at: nil, priority: 1, liked: i == 0)
-          FactoryGirl.create(:tag, name: 'tag', playlist: playlist) if i <= 4
+          playlist = FactoryBot.create(:playlist, for_user: @user, name: "name#{i}", url: "http://url#{i}.com", created_at: (15-i).days.ago, listened_at: nil, priority: 1, liked: i == 0)
+          FactoryBot.create(:tag, name: 'tag', playlist: playlist) if i <= 4
         end
 
-        FactoryGirl.create :playlist, for_user: @user, priority: 0, listened_at: nil
+        FactoryBot.create :playlist, for_user: @user, priority: 0, listened_at: nil
       end
 
       render_views
@@ -61,7 +61,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
   describe '#new' do
     it "should render the new template" do
-      user = FactoryGirl.create(:user)
+      user = FactoryBot.create(:user)
       get :new, params: {user_id: user.to_param}
       expect(response.status).to eql(200)
       expect(response).to render_template('new')
@@ -72,8 +72,8 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
   describe '#create' do
     before :each do
-      @for_user        = FactoryGirl.create(:user)
-      @playlist_params = FactoryGirl.attributes_for(:playlist)
+      @for_user        = FactoryBot.create(:user)
+      @playlist_params = FactoryBot.attributes_for(:playlist)
       Playlist.delete_all
     end
 
@@ -94,7 +94,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
     end
 
     it "should set the from_user if logged in" do
-      from_user = FactoryGirl.create(:user)
+      from_user = FactoryBot.create(:user)
       login_as from_user
 
       post :create, params: {user_id: @for_user.to_param, playlist: @playlist_params}

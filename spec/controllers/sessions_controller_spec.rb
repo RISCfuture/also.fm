@@ -10,7 +10,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe '#create' do
-    before(:all) { @user = FactoryGirl.create(:user, username: 'user', password: 'password123') }
+    before(:all) { @user = FactoryBot.create(:user, username: 'user', password: 'password123') }
 
     it "should reject an unknown username" do
       post :create, params: {username: 'user123', password: 'password123'}
@@ -44,7 +44,7 @@ RSpec.describe SessionsController, type: :controller do
   end
 
   describe '#destroy' do
-    before(:each) { login_as FactoryGirl.create(:user) }
+    before(:each) { login_as FactoryBot.create(:user) }
 
     it "should log the user out" do
       delete :destroy

@@ -6,7 +6,7 @@ git_source(:github) do |repo_name|
 end
 
 # FRAMEWORK
-gem 'rails', '5.1.3'
+gem 'rails', '5.1.4'
 
 # CONTROLLERS
 gem 'responders'
@@ -65,7 +65,7 @@ group :test do
   gem 'rails-controller-testing'
 
   # FACTORIES/DB
-  gem 'factory_girl_rails'
+  gem 'factory_bot_rails'
   gem 'ffaker'
   gem 'database_cleaner'
 
