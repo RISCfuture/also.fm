@@ -12,7 +12,7 @@ gem 'rails', '5.1.4'
 gem 'responders'
 
 # MODELS
-gem 'pg'
+gem 'pg', '< 1.0'
 gem 'url_validation'
 gem 'email_validation'
 gem 'find_or_create_on_scopes'
