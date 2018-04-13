@@ -6,7 +6,8 @@ git_source(:github) do |repo_name|
 end
 
 # FRAMEWORK
-gem 'rails', '5.1.6'
+gem 'rails', '5.2.0'
+gem 'bootsnap'
 
 # CONTROLLERS
 gem 'responders'
@@ -78,6 +79,5 @@ end
 
 group :production do
   # CACHING
-  gem 'redis-rails'
-  gem 'rack-cache', require: 'rack/cache'
+  gem 'redis'
 end

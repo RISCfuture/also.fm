@@ -1,6 +1,4 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery with: :exception
-
   include Authentication
 
   # @return [String] The name of the template being rendered.
