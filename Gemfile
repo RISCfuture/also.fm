@@ -28,7 +28,6 @@ gem 'autoprefixer-rails'
 # JS
 gem 'coffee-rails'
 gem 'uglifier'
-gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'turbolinks'
 # JSON/AJAX
