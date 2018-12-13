@@ -14,28 +14,26 @@ class PlaylistsController < ApplicationController
 
     title = load_url_title(html)
     return render(json: {title: nil}) unless title
+
     title = title.strip.gsub(/\s*\n\s*/, ' ')
 
     title = load_meta_title(html) if title == 'Connecting to the iTunes Store.'
 
     name = if title =~ /^iTunes - Music - (.+)$/
-             $1
+             Regexp.last_match(1)
            elsif title =~ /^(.+) on iTunes$/
-             $1
+             Regexp.last_match(1)
            elsif title =~ /^(.+) on Apple Music$/
-             $1
+             Regexp.last_match(1)
            elsif title =~ /^(.+) \| Free Listening on SoundCloud$/
-             $1
+             Regexp.last_match(1)
            elsif title =~ /^(.+) [|\-] YouTube$/
-             $1
-           else
-             nil
+             Regexp.last_match(1)
            end
 
     if (title.include?('iTunes') || title.include?('Apple Music')) && (song_title, _artist, _album = load_song_title(html, uri))
       name = "#{song_title} - #{name}"
     end
-
 
     render json: {title: name ? name[0, 100] : nil}
   end
@@ -49,7 +47,7 @@ class PlaylistsController < ApplicationController
       f.use FaradayMiddleware::FollowRedirects
       f.adapter Faraday.default_adapter
     end
-    res  = conn.get(uri.request_uri)
+    res = conn.get(uri.request_uri)
     return nil if !res.status || res.status/100 != 2
 
     Nokogiri::HTML(res.body)
@@ -75,7 +73,7 @@ class PlaylistsController < ApplicationController
 
     album_name = json['data']['attributes']['name']
 
-    record = json['included'].detect {|r| r['type'] == 'song' && r['id'].to_s == song_id.to_s} or return nil
+    record = json['included'].detect { |r| r['type'] == 'song' && r['id'].to_s == song_id.to_s } or return nil
     song_name   = record['attributes']['name']
     artist_name = record['attributes']['artistName']
     return song_name, artist_name, album_name
@@ -84,6 +82,7 @@ class PlaylistsController < ApplicationController
   def load_meta_title(html)
     meta = html.css('meta[property="og:title"]')
     return nil unless meta
+
     return meta[0].attributes['content'].text
   end
 end

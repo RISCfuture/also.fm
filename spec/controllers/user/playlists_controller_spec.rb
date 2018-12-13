@@ -44,7 +44,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
       it "should filter by liked" do
         get :index, params: {user_id: @user.to_param, liked: 'true', format: 'json', priority: '1'}
-        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(%w(name0))
+        expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(%w[name0])
         expect(response.headers['X-Page']).to eql('1')
         expect(response.headers['X-Count']).to eql('1')
       end

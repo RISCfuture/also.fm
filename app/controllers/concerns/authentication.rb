@@ -26,24 +26,22 @@ module Authentication
   protected
 
   def login_required
-    if logged_in?
-      return true
-    else
-      respond_to do |format|
-        format.html { redirect_to login_url, next: request.original_url }
-        format.any { head :forbidden }
-      end
+    return true if logged_in?
+
+    respond_to do |format|
+      format.html { redirect_to login_url, next: request.original_url }
+      format.any { head :forbidden }
     end
+    return false
   end
 
   def must_be_unauthenticated
-    if logged_in?
-      respond_to do |format|
-        format.html { redirect_to root_url }
-        format.any { head :forbidden }
-      end
-    else
-      return true
+    return true unless logged_in?
+
+    respond_to do |format|
+      format.html { redirect_to root_url }
+      format.any { head :forbidden }
     end
+    return false
   end
 end

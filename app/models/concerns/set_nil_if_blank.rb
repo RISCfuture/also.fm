@@ -1,4 +1,5 @@
 module SetNilIfBlank
+  # rubocop:disable Naming/AccessorMethodName
 
   # @overload set_nil_if_blank(field, ...)
   #   Specifies that the given field(s) should be set to nil if their values are
@@ -10,4 +11,6 @@ module SetNilIfBlank
       before_validation { |obj| obj.send :"#{field}=", nil if obj.send(field).blank? }
     end
   end
+
+  # rubocop:enable Naming/AccessorMethodName
 end

@@ -9,7 +9,7 @@ RSpec.describe User, type: :model do
 
       it "should not change the password if not given" do
         user = FactoryBot.create(:user)
-        expect { user.update_attribute :email, 'hi@there.com'}.not_to change(user, :password)
+        expect { user.update_attribute :email, 'hi@there.com' }.not_to change(user, :password)
       end
     end
   end

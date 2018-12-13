@@ -6,8 +6,8 @@ RSpec.describe PlaylistMailer, type: :mailer do
       user     = FactoryBot.create(:user, email: 'test@example.com')
       playlist = FactoryBot.create(:playlist, for_user: user)
       mail     = PlaylistMailer.new_playlist(playlist)
-      expect(mail.to).to eql(%w(test@example.com))
-      expect(mail.from).to eql(%w(noreply@also.fm))
+      expect(mail.to).to eql(%w[test@example.com])
+      expect(mail.from).to eql(%w[noreply@also.fm])
       expect(mail.subject).to eql("New music for you to listen to!")
     end
 

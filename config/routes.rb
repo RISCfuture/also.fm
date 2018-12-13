@@ -1,15 +1,15 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
-  resources :users, only: [:new, :create] do
-    resources :playlists, controller: 'user/playlists', only: [:index, :create]
+  resources :users, only: %i[new create] do
+    resources :playlists, controller: 'user/playlists', only: %i[index create]
   end
   resource :account, only: :destroy do
     resources :playlists, controller: 'account/playlists', only: :index do
       member { patch :ack, :like }
     end
   end
-  resource :session, only: [:new, :create, :destroy]
+  resource :session, only: %i[new create destroy]
 
   get 'signup' => 'users#new'
   get 'login' => 'sessions#new'

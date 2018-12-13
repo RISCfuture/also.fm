@@ -1,7 +1,7 @@
 require 'digest/sha2'
 
 class User < ApplicationRecord
-  SALT = '5d683ac93a'
+  SALT = '5d683ac93a'.freeze
 
   attr_accessor :password, :password_confirmation
 
@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   def self.reserved_names
     Rails.application.routes.routes.
-        map { |r| r.path.spec.to_s.split('/')[1]&.sub /\(.+$/, '' }.
+        map { |r| r.path.spec.to_s.split('/')[1]&.sub(/\(.+$/, '') }.
         compact.uniq.reject { |p| p.start_with?(':') }
   end
 
@@ -25,7 +25,7 @@ class User < ApplicationRecord
   validates :password,
             confirmation: true,
             length:       {minimum: 6},
-            exclusion:    {in: %w(123456 password 12345 12345678 qwerty 123456789 1234 baseball dragon football)},
+            exclusion:    {in: %w[123456 password 12345 12345678 qwerty 123456789 1234 baseball dragon football]},
             if:           :password
   validates :password, presence: {on: :create}
 
@@ -40,13 +40,14 @@ class User < ApplicationRecord
 
   def to_param() username end
 
+  # @private
+  def self.encrypt(string)
+    Digest::SHA256.hexdigest(string + SALT)
+  end
+
   private
 
   def encrypt_password
     self.crypted_password = self.class.encrypt(password)
-  end
-
-  def self.encrypt(string)
-    Digest::SHA256.hexdigest(string + SALT)
   end
 end

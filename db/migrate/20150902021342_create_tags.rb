@@ -6,6 +6,6 @@ class CreateTags < ActiveRecord::Migration[4.2]
     end
 
     add_foreign_key :tags, :playlists, on_delete: :cascade
-    add_index :tags, [:playlist_id, :name], unique: true
+    add_index :tags, %i[playlist_id name], unique: true
   end
 end

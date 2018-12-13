@@ -3,16 +3,14 @@ class User::PlaylistsController < ApplicationController
   respond_to :html, :json
 
   def index
-    if params[:tag].present?
-      @playlists = Tag.where(name: params[:tag]).joins(playlist: [:tags]).
-          where(playlists: {for_user_id: @user.id}) # adding :from_user to this association breaks the SQL query
-    else
-      @playlists = @user.received_playlists.includes(:from_user, :tags)
-    end
+    @playlists = if params[:tag].present?
+                   Tag.where(name: params[:tag]).joins(playlist: %i[tags]).
+                       where(playlists: {for_user_id: @user.id}) # adding :from_user to this association breaks the SQL query
+                 else
+                   @user.received_playlists.includes(:from_user, :tags)
+                 end
 
-    if params[:liked].present?
-      @playlists = @playlists.where(liked: true)
-    end
+    @playlists = @playlists.where(liked: true) if params[:liked].present?
 
     @playlists = @playlists.where(playlists: {priority: params[:priority]}).
         order('playlists.created_at DESC')

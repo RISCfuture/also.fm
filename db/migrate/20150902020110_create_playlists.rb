@@ -15,7 +15,7 @@ class CreatePlaylists < ActiveRecord::Migration[4.2]
 
     add_foreign_key :playlists, :users, column: :for_user_id, on_delete: :cascade
     add_foreign_key :playlists, :users, column: :from_user_id, on_delete: :nullify
-    add_index :playlists, [:for_user_id, :url], unique: true
-    add_index :playlists, [:for_user_id, :priority]
+    add_index :playlists, %i[for_user_id url], unique: true
+    add_index :playlists, %i[for_user_id priority]
   end
 end

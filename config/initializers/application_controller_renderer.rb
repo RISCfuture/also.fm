@@ -2,7 +2,7 @@
 
 ActiveSupport::Reloader.to_prepare do
   ApplicationController.renderer.defaults.merge!(
-      http_host: 'also.fm',
-      https:     true
+    http_host: 'also.fm',
+    https:     true
   )
 end

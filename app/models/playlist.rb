@@ -22,7 +22,7 @@ class Playlist < ApplicationRecord
   extend SetNilIfBlank
   set_nil_if_blank :name, :description
 
-  attr_accessor :tag_names
+  attr_writer :tag_names
   after_save :save_tags
 
   before_validation { |u| u.url = u.url&.strip }

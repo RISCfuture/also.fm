@@ -6,42 +6,42 @@ git_source(:github) do |repo_name|
 end
 
 # FRAMEWORK
-gem 'rails', '5.2.2'
 gem 'bootsnap'
+gem 'rails', '5.2.2'
 
 # CONTROLLERS
 gem 'responders'
 
 # MODELS
-gem 'pg', '< 1.0'
-gem 'url_validation'
 gem 'email_validation'
 gem 'find_or_create_on_scopes'
+gem 'pg', '< 1.0'
+gem 'url_validation'
 
 # ASSETS
 gem 'sprockets-rails'
 # HTML
 gem 'slim-rails'
 # CSS
-gem 'sass-rails'
 gem 'autoprefixer-rails'
+gem 'sass-rails'
 # JS
 gem 'coffee-rails'
-gem 'uglifier'
 gem 'jquery-rails'
 gem 'turbolinks'
+gem 'uglifier'
 # JSON/AJAX
-gem 'jbuilder'
 gem 'handlebars_assets'
+gem 'jbuilder'
 
 # EXTERNAL
+gem 'addressable'
 gem 'faraday'
 gem 'faraday_middleware'
 gem 'nokogiri'
-gem 'addressable'
 
 # OTHER
-gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
 group :development do
   gem 'puma'
@@ -61,13 +61,13 @@ end
 
 group :test do
   # SPECS
-  gem 'rspec-rails'
   gem 'rails-controller-testing'
+  gem 'rspec-rails'
 
   # FACTORIES/DB
+  gem 'database_cleaner'
   gem 'factory_bot_rails'
   gem 'ffaker'
-  gem 'database_cleaner'
 
   # NETWORK
   gem 'fakeweb'

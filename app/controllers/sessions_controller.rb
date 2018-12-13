@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
 
   def create
     @user = User.find_by_username(params[:username])
-    if @user && @user.valid_password?(params[:password])
+    if @user&.valid_password?(params[:password])
       log_in @user
       respond_to do |format|
         format.html { redirect_to params[:next] || root_url }

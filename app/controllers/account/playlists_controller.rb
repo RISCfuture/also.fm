@@ -1,15 +1,15 @@
 class Account::PlaylistsController < ApplicationController
   before_action :login_required
-  before_action :find_playlist, only: [:ack, :like]
+  before_action :find_playlist, only: %i[ack like]
   respond_to :json
 
   def index
-    if params[:tag].present?
-      @playlists = Tag.where(name: params[:tag]).joins(playlist: [:tags]).
-          where(playlists: {for_user_id: current_user.id}) # adding :from_user to this association breaks the SQL query
-    else
-      @playlists = current_user.received_playlists.includes(:from_user, :tags)
-    end
+    @playlists = if params[:tag].present?
+                   Tag.where(name: params[:tag]).joins(playlist: %i[tags]).
+                       where(playlists: {for_user_id: current_user.id}) # adding :from_user to this association breaks the SQL query
+                 else
+                   current_user.received_playlists.includes(:from_user, :tags)
+                 end
 
     @playlists = @playlists.where(playlists: {listened_at: nil, priority: params[:priority]}).
         order('playlists.created_at DESC')
