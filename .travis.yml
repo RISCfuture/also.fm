@@ -1,0 +1,16 @@
+language: ruby
+rvm:
+- 2.6.3
+postgres:
+  adapter: postgresql
+  database: also_test
+  username: also
+before_install:
+- gem update --system
+- gem install bundler
+before_script:
+- createuser also
+- createdb -O also also_test
+- bundle exec rails db:migrate
+env:
+  secure: bMGmaY1gf2ibKJBBtaFjQrFGdXOQa7Sl7YvcBFtOoGMTPBjuGXB8STQbU0KQWWMHnusyLZ3hmMQzk5IAB0NxZihV8KcDf7UCHdw33Lw0pcZK8+zMiPnUdY1VXDyVltoN5Fn3qjWO5PUPRBnKLOKkchmHUTzjXU+c1XjEcXt6stsMYh1K1H7nfWKatuXTO5TSBi3m1dMFAsPo2zSlPQb/U4y0JpCfJlQaphlQDM9QJJKTA6LpUesr3cWWN9POV99BmhBzNuztwltSRxPolYDVy48wM1W+grjzbpXZZTLis/SNd3OIoovH0iFS4s0/1oNS1louK4c7LCYAzS6lDgqqiQG87catwRsPjlxZvpmXehEouYsyv30SBJtjEEDvmo+LO2CCDOI13F5KIBqsK89ksXxjSzJhmziV2relOFLqTYrfE6HNX7eJffwdrT2KLDGzV51a5auwrincw2CKCATBcmWD7dlAdXYdjlgc/hcFrG92cNDvp3B1T8F9npXmw1ATzA3Zzh255/A5Keijq9j3xAaoXFmRZGnw9m58snsz3qz3jDyR28BlJSKUkrb5DcbZ/ogflReydNIEYAcwY9FQeJgVvaaMwi/3wlm9oqa0LbOpsnTyelGvjKKKlDMwFLx1BKqxLh10hySdxq330ZgMFpQjITnrk+J9/I/Cn8zm+H0=
