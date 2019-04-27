@@ -32,4 +32,12 @@ module ApplicationHelper
   def full_controller_path
     controller.class.to_s.underscore.gsub(/_controller$/, '')
   end
+
+  def defer_inline_js(js)
+    <<-JS
+      window.addEventListener('DOMContentLoaded', function() {
+         #{js}
+      })
+    JS
+  end
 end

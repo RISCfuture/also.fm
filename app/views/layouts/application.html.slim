@@ -10,11 +10,11 @@ html lang="en"
     title also.
 
     = stylesheet_link_tag 'application'
+    = javascript_include_tag 'application', nonce: true, defer: true
 
   body class=full_controller_name id="#{full_controller_name}-#{current_template}" style="background-image: url(#{random_background_image})"
     article
       = render partial: 'layouts/nav'
       = yield
 
-    = javascript_include_tag 'application'
     = render partial: 'layouts/inline_js'
