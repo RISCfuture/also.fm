@@ -7,7 +7,7 @@ end
 
 # FRAMEWORK
 gem 'bootsnap'
-gem 'rails', '5.2.2.1'
+gem 'rails', '5.2.3'
 
 # CONTROLLERS
 gem 'responders'
@@ -15,7 +15,7 @@ gem 'responders'
 # MODELS
 gem 'email_validation'
 gem 'find_or_create_on_scopes'
-gem 'pg', '< 1.0'
+gem 'pg'
 gem 'url_validation'
 
 # ASSETS
@@ -79,4 +79,7 @@ end
 group :production do
   # CACHING
   gem 'redis'
+
+  # CONSOLE
+  gem 'irb', require: false
 end
