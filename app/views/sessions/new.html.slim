@@ -8,11 +8,11 @@
 = form_with url: session_url, method: :post, local: true do |f|
   .row
     div= f.label :username, "username"
-    div= f.text_field :username, value: @username, required: true, maxlength: 16
+    div= f.text_field :username, value: @username, required: true, maxlength: 16, autocomplete: 'username'
 
   .row
     div= f.label :password, "password"
-    div= f.password_field :password, value: '', required: true
+    div= f.password_field :password, value: '', required: true, autocomplete: 'current-password'
 
   .row
     div
