@@ -1,6 +1,8 @@
 class ApplicationController < ActionController::Base
   include Authentication
 
+  before_bugsnag_notify :add_user_info_to_bugsnag
+
   # @return [String] The name of the template being rendered.
   attr_accessor :current_template
   helper_method :current_template
@@ -25,5 +27,15 @@ class ApplicationController < ActionController::Base
   def _render_template(options, *other_stuff)
     self.current_template = options[:template]
     super
+  end
+
+  private
+
+  def add_user_info_to_bugsnag(report)
+    report.user = {
+        id:    current_user.id,
+        name:  current_user.username,
+        email: current_user.email
+    } if logged_in?
   end
 end

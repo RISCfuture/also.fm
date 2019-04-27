@@ -40,6 +40,9 @@ gem 'faraday'
 gem 'faraday_middleware'
 gem 'nokogiri'
 
+# ERROR TRACKING
+gem 'bugsnag'
+
 # OTHER
 gem 'tzinfo-data', platforms: %i[mingw mswin x64_mingw jruby]
 
