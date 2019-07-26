@@ -20,6 +20,7 @@ gem 'url_validation'
 
 # ASSETS
 gem 'sprockets-rails'
+gem 'mini_racer'
 # HTML
 gem 'slim-rails'
 # CSS
