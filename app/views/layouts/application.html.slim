@@ -9,10 +9,12 @@ html lang="en"
 
     title also.
 
-    = stylesheet_link_tag 'application'
+    = stylesheet_link_tag 'application', nonce: content_security_policy_nonce
     = javascript_include_tag 'application', nonce: true, defer: true
 
-  body class=full_controller_name id="#{full_controller_name}-#{current_template}" style="background-image: url(#{random_background_image})"
+    style nonce=content_security_policy_nonce == random_background_image_style
+
+  body class=full_controller_name id="#{full_controller_name}-#{current_template}"
     article
       = render partial: 'layouts/nav'
       = yield

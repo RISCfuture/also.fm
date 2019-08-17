@@ -1,13 +1,8 @@
 source 'https://rubygems.org'
 
-git_source(:github) do |repo_name|
-  repo_name = "#{repo_name}/#{repo_name}" unless repo_name.include?("/")
-  "https://github.com/#{repo_name}.git"
-end
-
 # FRAMEWORK
 gem 'bootsnap'
-gem 'rails', '5.2.3'
+gem 'rails', '6.0.0'
 
 # CONTROLLERS
 gem 'responders'
@@ -20,7 +15,6 @@ gem 'url_validation'
 
 # ASSETS
 gem 'sprockets-rails'
-gem 'mini_racer'
 # HTML
 gem 'slim-rails'
 # CSS
@@ -29,7 +23,6 @@ gem 'sass-rails'
 # JS
 gem 'coffee-rails'
 gem 'jquery-rails'
-gem 'turbolinks'
 gem 'uglifier'
 # JSON/AJAX
 gem 'handlebars_assets'
@@ -75,7 +68,7 @@ end
 group :test do
   # SPECS
   gem 'rails-controller-testing'
-  gem 'rspec-rails'
+  gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-dev'
 
   # FACTORIES/DB
   gem 'database_cleaner'
@@ -95,4 +88,7 @@ group :production do
 
   # CONSOLE
   gem 'irb', require: false
+
+  # ASSETS
+  gem 'mini_racer'
 end

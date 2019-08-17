@@ -41,7 +41,7 @@ class Playlist < ApplicationRecord
     new_tags.each do |name|
       tags.where(name: name).find_or_create
     end
-    tags.where('name NOT IN (?)', new_tags).delete_all
+    tags.delete_by('name NOT IN (?)', new_tags)
   end
 
   def set_name

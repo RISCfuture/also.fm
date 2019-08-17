@@ -9,6 +9,12 @@ module ApplicationHelper
     image_url File.join('backgrounds', File.basename(video))
   end
 
+  def random_background_image_style
+    <<~CSS.chomp
+      body { background-image: url(#{random_background_image}); }
+    CSS
+  end
+
   def try_again
     t('helpers.application.try_again').sample
   end
