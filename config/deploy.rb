@@ -45,6 +45,6 @@ set :bugsnag_api_key, Rails.application.credentials.bugsnag_api_key
 # set :nvm_node, 'v9.5.0'
 # append :nvm_map_bins, 'yarnpkg', './bin/yarn', 'webpack'
 set :default_env,
-    'PATH' => '/usr/local/nvm/versions/node/v11.11.0/bin:$PATH'
+    'PATH' => '/usr/local/nvm/versions/node/v12.11.1/bin:$PATH'
 
 set :passenger_restart_with_sudo, true
