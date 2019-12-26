@@ -7,7 +7,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
       it "should render the index template" do
         user = FactoryBot.create(:user)
         get :index, params: {user_id: user.to_param}
-        expect(response.status).to eql(200)
+        expect(response.status).to be(200)
         expect(response).to render_template('index')
         expect(assigns(:user)).to eql(user)
       end
@@ -29,7 +29,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
       it "should load the current user's playlists" do
         get :index, params: {user_id: @user.to_param, format: 'json', priority: '1'}
-        expect(response.status).to eql(200)
+        expect(response.status).to be(200)
         expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(14.downto(5).map { |i| "name#{i}" })
         expect(response.headers['X-Page']).to eql('1')
         expect(response.headers['X-Count']).to eql('15')
@@ -51,7 +51,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
       it "should paginate" do
         get :index, params: {user_id: @user.to_param, format: 'json', priority: '1', page: '2'}
-        expect(response.status).to eql(200)
+        expect(response.status).to be(200)
         expect(JSON.parse(response.body).map { |j| j['name'] }).to eql(4.downto(0).map { |i| "name#{i}" })
         expect(response.headers['X-Page']).to eql('2')
         expect(response.headers['X-Count']).to eql('15')
@@ -63,7 +63,7 @@ RSpec.describe User::PlaylistsController, type: :controller do
     it "should render the new template" do
       user = FactoryBot.create(:user)
       get :new, params: {user_id: user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response).to render_template('new')
       expect(assigns(:user)).to eql(user)
       expect(assigns(:playlist)).to be_kind_of(Playlist)
@@ -79,16 +79,16 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
     it "should create a new playlist" do
       post :create, params: {user_id: @for_user.to_param, playlist: @playlist_params}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response).to render_template('create')
-      expect(Playlist.count).to eql(1)
+      expect(Playlist.count).to be(1)
       expect(Playlist.first.url).to eql(@playlist_params[:url])
       expect(Playlist.first.for_user).to eql(@for_user)
     end
 
     it "should handle errors" do
       post :create, params: {user_id: @for_user.to_param, playlist: @playlist_params.merge(url: nil)}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response).to render_template('new')
       expect(Playlist.count).to be_zero
     end
@@ -99,8 +99,8 @@ RSpec.describe User::PlaylistsController, type: :controller do
 
       post :create, params: {user_id: @for_user.to_param, playlist: @playlist_params}
 
-      expect(response.status).to eql(200)
-      expect(Playlist.count).to eql(1)
+      expect(response.status).to be(200)
+      expect(Playlist.count).to be(1)
       expect(Playlist.first.from_user).to eql(from_user)
     end
   end

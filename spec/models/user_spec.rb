@@ -20,11 +20,11 @@ RSpec.describe User, type: :model do
     end
 
     it "should return false given an invalid password" do
-      expect(@user.valid_password?('wrong')).to eql(false)
+      expect(@user.valid_password?('wrong')).to be(false)
     end
 
     it "should return true given a valid password" do
-      expect(@user.valid_password?('password123')).to eql(true)
+      expect(@user.valid_password?('password123')).to be(true)
     end
   end
 end

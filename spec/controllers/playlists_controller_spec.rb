@@ -5,25 +5,26 @@ RSpec.describe PlaylistsController, type: :controller do
     it "should render the index page if logged in" do
       login_as FactoryBot.create(:user)
       get :index
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response).to render_template('index')
     end
 
     it "should render the splash page if logged out" do
       get :index
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response).to render_template('splash')
     end
   end
 
   describe '#name' do
     before(:each) { @user = FactoryBot.create(:user) }
+
     it "should guess a name for a YouTube URL" do
       FakeWeb.register_uri :get,
                            'https://www.youtube.com/user/TheOfficialSkrillex',
                            body: Rails.root.join('spec', 'fixtures', 'youtube.html').read
       get :name, params: {url: 'https://www.youtube.com/user/TheOfficialSkrillex', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":"Skrillex"}')
     end
 
@@ -32,7 +33,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            'https://itunes.apple.com/us/artist/vast/id149550',
                            body: Rails.root.join('spec', 'fixtures', 'itunes.html').read
       get :name, params: {url: 'https://itunes.apple.com/us/artist/vast/id149550', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":"VAST"}')
     end
 
@@ -41,7 +42,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            'https://itunes.apple.com/us/playlist/chill-house/idpl.bd55c25265aa4de8b3fc3e0960751846',
                            body: Rails.root.join('spec', 'fixtures', 'itunes_playlist.html').read
       get :name, params: {url: 'https://itunes.apple.com/us/playlist/chill-house/idpl.bd55c25265aa4de8b3fc3e0960751846', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":"Chill House by Apple Music Dance"}')
     end
 
@@ -50,7 +51,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            'https://soundcloud.com/nba-youngboy/graffiti',
                            body: Rails.root.join('spec', 'fixtures', 'soundcloud.html').read
       get :name, params: {url: 'https://soundcloud.com/nba-youngboy/graffiti', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":"Graffiti by YoungBoy Never Broke Again"}')
     end
 
@@ -59,13 +60,13 @@ RSpec.describe PlaylistsController, type: :controller do
                            'http://example.com',
                            body: Rails.root.join('spec', 'fixtures', 'example.html').read
       get :name, params: {url: 'http://example.com', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":null}')
     end
 
     it "should suggest nil for non-HTTP URLs" do
       get :name, params: {url: 'ftp://example.com', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":null}')
     end
 
@@ -75,7 +76,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            body:   Rails.root.join('spec', 'fixtures', 'youtube.html').read,
                            status: 404
       get :name, params: {url: 'https://soundcloud.com/chidde/josef-salvat-open-season-bootleg-mix', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":null}')
     end
 
@@ -84,7 +85,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            'https://soundcloud.com/vijayandsofia/vijay-sofia-notte-world-of-colors',
                            body: Rails.root.join('spec', 'fixtures', 'unicode.html').read
       get :name, params: {url: 'https://soundcloud.com/vijayandsofia/vijay-sofia-notte-world-of-colors', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":"Vijay \\u0026 Sofia, Notte - World Of Colors by Vijay and Sofia"}')
     end
 
@@ -93,7 +94,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            'https://itunes.apple.com/us/album/cold-water-feat.-justin-bieber/id1151620671?i=1151620691',
                            body: Rails.root.join('spec', 'fixtures', 'long.html').read
       get :name, params: {url: 'https://itunes.apple.com/us/album/cold-water-feat.-justin-bieber/id1151620671?i=1151620691', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":"Cold Water (feat. Justin Bieber \\u0026 MØ) [Lost Frequencies Remix] - Cold Water (feat. Justin Bieber \\u0026 M"}')
     end
 
@@ -102,7 +103,7 @@ RSpec.describe PlaylistsController, type: :controller do
                            'https://itunes.apple.com/us/album/xx-two-decades-of-love-metal/id776720311?i=776720349',
                            body: Rails.root.join('spec', 'fixtures', 'itunes_song.html').read
       get :name, params: {url: 'https://itunes.apple.com/us/album/xx-two-decades-of-love-metal/id776720311?i=776720349', user_id: @user.to_param}
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response.body).to eql('{"title":"Wicked Game - XX - Two Decades of Love Metal by HIM"}')
     end
   end

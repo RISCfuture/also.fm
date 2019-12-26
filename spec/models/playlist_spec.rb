@@ -17,7 +17,7 @@ RSpec.describe Playlist, type: :model do
       it "should save tags from tag names" do
         playlist = FactoryBot.build(:playlist, tag_names: '#foo #bar')
         playlist.save!
-        expect(playlist.tags.count).to eql(2)
+        expect(playlist.tags.count).to be(2)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
         expect(playlist.tags.find_by_name('bar')).not_to be_nil
       end
@@ -26,7 +26,7 @@ RSpec.describe Playlist, type: :model do
         playlist = FactoryBot.create(:playlist)
         FactoryBot.create :tag, name: 'foo', playlist: playlist
         playlist.update tag_names: '#foo #bar'
-        expect(playlist.tags.count).to eql(2)
+        expect(playlist.tags.count).to be(2)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
         expect(playlist.tags.find_by_name('bar')).not_to be_nil
       end
@@ -36,12 +36,12 @@ RSpec.describe Playlist, type: :model do
         FactoryBot.create :tag, name: 'foo', playlist: playlist
         FactoryBot.create :tag, name: 'bar', playlist: playlist
         playlist.update tag_names: '#foo'
-        expect(playlist.tags.count).to eql(1)
+        expect(playlist.tags.count).to be(1)
         expect(playlist.tags.find_by_name('foo')).not_to be_nil
       end
     end
 
-    context '#name' do
+    describe '#name' do
       it "should default to the URL" do
         expect(FactoryBot.create(:playlist, name: nil, url: 'http://www.foo.com').name).
             to eql('http://www.foo.com')
@@ -54,7 +54,7 @@ RSpec.describe Playlist, type: :model do
       it "should send an email if the for_user has an email" do
         for_user = FactoryBot.create(:user, email: 'sancho@example.com')
         playlist = FactoryBot.build(:playlist, for_user: for_user)
-        message = double('Mail::Message')
+        message = instance_double('ActionMailer::MessageDelivery')
         expect(message).to receive(:deliver_now).once
         expect(PlaylistMailer).to receive(:new_playlist).once.with(playlist).and_return(message)
         playlist.save

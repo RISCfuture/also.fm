@@ -1,17 +1,3 @@
-GIT
-  remote: https://github.com/rspec/rspec-rails.git
-  revision: 4a933fde99de79b13ae14afa1568f7188f1d967a
-  branch: 4-0-dev
-  specs:
-    rspec-rails (4.0.0.beta2)
-      actionpack (>= 4.2)
-      activesupport (>= 4.2)
-      railties (>= 4.2)
-      rspec-core (~> 3.8)
-      rspec-expectations (~> 3.8)
-      rspec-mocks (~> 3.8)
-      rspec-support (~> 3.8)
-
 GEM
   remote: https://rubygems.org/
   specs:
@@ -74,7 +60,7 @@ GEM
       public_suffix (>= 2.0.2, < 5.0)
     airbrussh (1.4.0)
       sshkit (>= 1.6.1, != 1.7.0)
-    autoprefixer-rails (9.7.1)
+    autoprefixer-rails (9.7.3)
       execjs
     better_errors (2.5.1)
       coderay (>= 1.0.0)
@@ -87,7 +73,7 @@ GEM
     bugsnag (6.12.2)
       concurrent-ruby (~> 1.0)
     bugsnag-capistrano (2.0.0)
-    builder (3.2.3)
+    builder (3.2.4)
     capistrano (3.11.2)
       airbrussh (>= 1.0.0)
       i18n
@@ -114,7 +100,7 @@ GEM
       execjs
     coffee-script-source (1.12.2)
     concurrent-ruby (1.1.5)
-    crass (1.0.5)
+    crass (1.0.6)
     database_cleaner (1.7.0)
     debug_inspector (0.0.3)
     diff-lcs (1.3)
@@ -128,26 +114,28 @@ GEM
       factory_bot (~> 5.1.0)
       railties (>= 4.2.0)
     fakeweb (1.3.0)
-    faraday (0.17.0)
+    faraday (0.17.3)
       multipart-post (>= 1.2, < 3)
     faraday_middleware (0.13.1)
       faraday (>= 0.7.4, < 1.0)
     ffaker (2.13.0)
-    ffi (1.11.2)
+    ffi (1.11.3)
     find_or_create_on_scopes (1.5.0)
       activerecord (>= 3.1)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
-    handlebars_assets (0.23.5)
+    handlebars_assets (0.23.7)
       execjs (~> 2.0)
       sprockets (>= 2.0.0)
       tilt (>= 1.2)
     httpi (2.4.4)
       rack
       socksify
-    i18n (1.7.0)
+    i18n (1.8.2)
       concurrent-ruby (~> 1.0)
-    irb (1.0.0)
+    io-console (0.5.4)
+    irb (1.2.1)
+      reline (>= 0.0.1)
     jbuilder (2.9.1)
       activesupport (>= 4.2.0)
     jquery-rails (4.3.5)
@@ -155,13 +143,13 @@ GEM
       railties (>= 4.2.0)
       thor (>= 0.14, < 2.0)
     libv8 (7.3.492.27.1)
-    listen (3.2.0)
+    listen (3.2.1)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
     localized_each_validator (1.0.3)
       activemodel (>= 3.0)
       activesupport (>= 3.0)
-    loofah (2.3.1)
+    loofah (2.4.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
     mail (2.7.1)
@@ -172,22 +160,22 @@ GEM
     mimemagic (0.3.3)
     mini_mime (1.0.2)
     mini_portile2 (2.4.0)
-    mini_racer (0.2.8)
+    mini_racer (0.2.9)
       libv8 (>= 6.9.411)
-    minitest (5.13.0)
+    minitest (5.14.0)
     msgpack (1.3.1)
     multipart-post (2.1.1)
     net-scp (2.0.0)
       net-ssh (>= 2.6.5, < 6.0.0)
     net-ssh (5.2.0)
     nio4r (2.5.2)
-    nokogiri (1.10.5)
+    nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
-    pg (1.1.4)
-    public_suffix (4.0.1)
-    puma (4.3.0)
+    pg (1.2.2)
+    public_suffix (4.0.3)
+    puma (4.3.1)
       nio4r (~> 2.0)
-    rack (2.0.7)
+    rack (2.1.1)
     rack-test (1.1.0)
       rack (>= 1.0, < 3)
     rails (6.0.1)
@@ -222,22 +210,32 @@ GEM
       thor (>= 0.20.3, < 2.0)
     rake (13.0.1)
     rb-fsevent (0.10.3)
-    rb-inotify (0.10.0)
+    rb-inotify (0.10.1)
       ffi (~> 1.0)
     redcarpet (3.5.0)
     redis (4.1.3)
+    reline (0.1.2)
+      io-console (~> 0.5)
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
-    rspec-core (3.9.0)
-      rspec-support (~> 3.9.0)
+    rspec-core (3.9.1)
+      rspec-support (~> 3.9.1)
     rspec-expectations (3.9.0)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
-    rspec-mocks (3.9.0)
+    rspec-mocks (3.9.1)
       diff-lcs (>= 1.2.0, < 2.0)
       rspec-support (~> 3.9.0)
-    rspec-support (3.9.0)
+    rspec-rails (4.0.0.beta3)
+      actionpack (>= 4.2)
+      activesupport (>= 4.2)
+      railties (>= 4.2)
+      rspec-core (~> 3.8)
+      rspec-expectations (~> 3.8)
+      rspec-mocks (~> 3.8)
+      rspec-support (~> 3.8)
+    rspec-support (3.9.2)
     sass-rails (6.0.0)
       sassc-rails (~> 2.1, >= 2.1.1)
     sassc (2.2.1)
@@ -267,11 +265,11 @@ GEM
       net-scp (>= 1.1.2)
       net-ssh (>= 2.8.0)
     temple (0.8.2)
-    thor (0.20.3)
+    thor (1.0.1)
     thread_safe (0.3.6)
     tilt (2.0.10)
     timecop (0.9.1)
-    tzinfo (1.2.5)
+    tzinfo (1.2.6)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
@@ -283,8 +281,8 @@ GEM
     websocket-driver (0.7.1)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.4)
-    yard (0.9.20)
-    zeitwerk (2.2.1)
+    yard (0.9.24)
+    zeitwerk (2.2.2)
 
 PLATFORMS
   ruby
@@ -326,7 +324,7 @@ DEPENDENCIES
   redcarpet
   redis
   responders
-  rspec-rails!
+  rspec-rails (= 4.0.0.beta.3)
   sass-rails
   slim-rails
   sprockets-rails
@@ -337,4 +335,4 @@ DEPENDENCIES
   yard
 
 BUNDLED WITH
-   2.0.2
+   2.1.2

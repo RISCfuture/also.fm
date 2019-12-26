@@ -68,7 +68,7 @@ end
 group :test do
   # SPECS
   gem 'rails-controller-testing'
-  gem 'rspec-rails', github: 'rspec/rspec-rails', branch: '4-0-dev'
+  gem 'rspec-rails', '4.0.0.beta.3'
 
   # FACTORIES/DB
   gem 'database_cleaner'

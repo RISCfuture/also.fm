@@ -12,7 +12,7 @@ set :repo_url, 'https://github.com/RISCfuture/also.fm.git'
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/var/www/also.fm'
 
-set :rvm_ruby_version, "2.6.5@#{fetch :application}"
+set :rvm_ruby_version, "2.7.0@#{fetch :application}"
 
 # Default value for :scm is :git
 # set :scm, :git
@@ -45,6 +45,6 @@ set :bugsnag_api_key, Rails.application.credentials.bugsnag_api_key
 # set :nvm_node, 'v9.5.0'
 # append :nvm_map_bins, 'yarnpkg', './bin/yarn', 'webpack'
 set :default_env,
-    'PATH' => '/usr/local/nvm/versions/node/v12.11.1/bin:$PATH'
+    'PATH' => '/usr/local/nvm/versions/node/v12.14.1/bin:$PATH'
 
 set :passenger_restart_with_sudo, true

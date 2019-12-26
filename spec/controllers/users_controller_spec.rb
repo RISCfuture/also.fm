@@ -4,7 +4,7 @@ RSpec.describe UsersController, type: :controller do
   describe '#new' do
     it "should render the new template" do
       get :new
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response).to render_template('new')
       expect(assigns(:user)).to be_kind_of(User)
     end

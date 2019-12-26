@@ -4,7 +4,7 @@ RSpec.describe SessionsController, type: :controller do
   describe '#new' do
     it "should render the login page" do
       get :new
-      expect(response.status).to eql(200)
+      expect(response.status).to be(200)
       expect(response).to render_template('new')
     end
   end
